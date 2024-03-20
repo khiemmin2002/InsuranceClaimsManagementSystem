@@ -39,18 +39,17 @@ public class InsuranceCard {
 
     // Format the expired date to mm/dd/yyyy
     public String getFormattedExpiredDate() {
+        if (expiredDate == null) {
+            return "Date is not set";
+        }
         return new SimpleDateFormat("MM/dd/yyyy").format(expiredDate);
     }
 
     // Add an insurance card
-    public static void addInsuranceCard() {
+    public static InsuranceCard addInsuranceCard(String cardHolder) {
         // Create insurance card
 
         Scanner scanner = new Scanner(System.in);
-
-        // Prompt the user to enter the cardholder's name
-        System.out.print("Enter the cardholder's name: ");
-        String cardHolder = scanner.nextLine();
 
         // Prompt the user to enter the policy owner's name
         System.out.print("Enter the policy owner's name: ");
@@ -69,8 +68,7 @@ public class InsuranceCard {
         int day = promptForIntInput(scanner, "Enter the day of the expired date (dd): ", n -> isValidDay(month, n, year), "Invalid day. Please enter a valid day for the month");
 
         Date expiredDate = handleDateInput(year, month, day);
-        InsuranceCard insuranceCard = new InsuranceCard(cardHolder, policyOwner, expiredDate);
-        System.out.println(insuranceCard);
+        return new InsuranceCard(cardHolder, policyOwner, expiredDate);
     }
 
     private static int promptForIntInput(Scanner scanner, String prompt, IntPredicate valid, String errorMessage) {

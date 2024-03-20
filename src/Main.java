@@ -45,6 +45,6 @@ class Main {
         */
 
         // Create insurance card
-        InsuranceCard.addInsuranceCard();
+        PolicyHolder.addPolicyHolder();
     }
 }
