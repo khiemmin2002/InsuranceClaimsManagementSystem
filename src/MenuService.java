@@ -34,8 +34,11 @@ public class MenuService {
             if (selectedItem.hasSubMenu()) {
                 displayMenu(selectedItem.getSubMenu()); // Recursive call for sub-menus
             } else {
-                System.out.println("\nSelected: " + selectedItem.getName());
-                // Perform actions for the selected menu item here
+                System.out.println("You have selected: " + selectedItem.getName());
+                // Add the logic to handle the selected option here
+                if (selectedItem.getName().equals("Add Customer")) {
+                    PolicyHolder.addPolicyHolder();
+                }
             }
             // If we are in a sub-menu, loop will allow choosing another option in the same sub-menu
             // If "Return to previous page" is selected, we exit this method invocation and go back up one level

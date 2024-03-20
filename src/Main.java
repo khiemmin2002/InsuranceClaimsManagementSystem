@@ -10,7 +10,7 @@ import java.util.Date;
 
 class Main {
     public static void main(String[] args) {
-        /*
+
 
         Menu insuranceClaimsMenu = new Menu();
         insuranceClaimsMenu.setTitle("Welcome to Insurance Claims Management System");
@@ -42,9 +42,10 @@ class Main {
         // Display the menu to the user and handle their choices
         insuranceClaimsMenuService.start();
 
-        */
+
 
         // Create insurance card
-        PolicyHolder.addPolicyHolder();
+//        PolicyHolder.addPolicyHolder();
+//        PolicyHolder.addPolicyHolder();
     }
 }
