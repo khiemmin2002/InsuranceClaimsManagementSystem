@@ -45,27 +45,6 @@ class Main {
         */
 
         // Create insurance card
-        String dateString1 = "08/28/2029"; // Replace with your desired date
-        String dateString2 = "12/03/2030"; // Replace with your desired date
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-
-        InsuranceCard card1 = null;
-        InsuranceCard card2 = null;
-
-        try {
-            Date date1 = formatter.parse(dateString1);
-            Date date2 = formatter.parse(dateString2);
-            card1 = new InsuranceCard("Joe Biden", "US Government", date1);
-            card2 = new InsuranceCard("Kamala Harris", "US Senate", date2);
-        } catch (ParseException e) {
-            System.err.println("There was an error parsing the date. Please ensure it's in the MM/dd/yyyy format.");
-        }
-
-        // Print the insurance card
-        System.out.println(card1);
-        System.out.println(card2);
-
-        // Get the card number
-        System.out.println("Card number: " + card1.getCardNum());
+        InsuranceCard.addInsuranceCard();
     }
 }
