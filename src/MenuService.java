@@ -34,7 +34,7 @@ public class MenuService {
             if (selectedItem.hasSubMenu()) {
                 displayMenu(selectedItem.getSubMenu()); // Recursive call for sub-menus
             } else {
-                System.out.println("You have selected: " + selectedItem.getName());
+                System.out.println("\nYou have selected: " + selectedItem.getName() + "\n");
                 // Add the logic to handle the selected option here
                 if (selectedItem.getName().equals("Add Customer")) {
                     PolicyHolder.addPolicyHolder();
@@ -66,6 +66,7 @@ public class MenuService {
             try {
                 Thread.sleep(2000);
                 scanner.close();
+                System.out.println("Goodbye!");
                 System.exit(0);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt(); // Properly handle the InterruptedException

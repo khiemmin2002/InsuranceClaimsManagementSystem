@@ -51,6 +51,8 @@ public class InsuranceCard {
 
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Adding an insurance card...");
+
         // Prompt the user to enter the policy owner's name
         System.out.print("Enter the policy owner's name: ");
         String policyOwner = scanner.nextLine();
