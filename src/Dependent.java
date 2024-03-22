@@ -7,9 +7,8 @@ public class Dependent extends Customer {
         super();
     }
 
-    public Dependent(String fullName, InsuranceCard insuranceCard, PolicyHolder policyHolder) {
+    public Dependent(String fullName, InsuranceCard insuranceCard) {
         super(fullName, insuranceCard);
-        this.policyHolder = policyHolder;
     }
 
     public PolicyHolder getPolicyHolder() {

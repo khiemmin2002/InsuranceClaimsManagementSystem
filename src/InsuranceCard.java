@@ -22,6 +22,22 @@ public class InsuranceCard {
         this.cardNum = generateCardNum();
     }
 
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    public String getCardHolder() {
+        return cardHolder;
+    }
+
+    public String getPolicyOwner() {
+        return policyOwner;
+    }
+
+    public Date getExpiredDate() {
+        return expiredDate;
+    }
+
     // Set the card number whenever the card is created
     // The card number is 10 digits long, generate randomly, and unique (The num can start with 0)
     // This method now returns a String that represents the card number

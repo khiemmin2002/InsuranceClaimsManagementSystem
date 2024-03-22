@@ -32,4 +32,5 @@ public abstract class Customer {
         }
         return idBuilder.toString();
     }
+
 }

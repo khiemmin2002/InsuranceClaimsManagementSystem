@@ -44,10 +44,9 @@ class Main {
 
 
 
-        // Create insurance card
-        PolicyHolder.addPolicyHolder();
+    PolicyHolder.displayPolicyHolders();
 
-        // Adding a dependent
-        PolicyHolder.addDependent();
+
+
     }
 }
