@@ -19,6 +19,11 @@ public class Dependent extends Customer {
         this.policyHolder = policyHolder;
     }
 
+    // Assign insurance card
+    public void assignInsuranceCard(InsuranceCard insuranceCard) {
+        setInsuranceCard(insuranceCard);
+    }
+
 
 
     @Override

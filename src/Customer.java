@@ -3,14 +3,21 @@ public abstract class Customer {
     private String fullName;
     private InsuranceCard insuranceCard;
 
+    // Default constructor with default values
     public Customer() {
         this.id = generateCustomerID(); // Generate ID for every Customer instance
+        this.fullName = "Default";
+        this.insuranceCard = new InsuranceCard();
     }
 
     public Customer(String fullName, InsuranceCard insuranceCard) {
         this.id = generateCustomerID(); // Generate ID for every Customer instance
         this.fullName = fullName;
         this.insuranceCard = insuranceCard;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getId() {
@@ -23,6 +30,10 @@ public abstract class Customer {
 
     public InsuranceCard getInsuranceCard() {
         return insuranceCard;
+    }
+
+    public void setInsuranceCard(InsuranceCard insuranceCard) {
+        this.insuranceCard = insuranceCard;
     }
 
     public String generateCustomerID() {

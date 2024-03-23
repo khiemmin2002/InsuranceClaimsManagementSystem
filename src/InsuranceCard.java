@@ -13,13 +13,24 @@ public class InsuranceCard {
     private Date expiredDate;
 
     public InsuranceCard() {
+        cardNum = generateCardNum();
+        cardHolder = "Default";
+        policyOwner = "Default";
+        expiredDate = null;
     }
 
     public InsuranceCard(String cardHolder, String policyOwner, Date expiredDate) {
+        this.cardNum = generateCardNum();
         this.cardHolder = cardHolder;
         this.policyOwner = policyOwner;
         this.expiredDate = expiredDate;
-        this.cardNum = generateCardNum();
+    }
+
+    public InsuranceCard(String cardNum, String cardHolder, String policyOwner, Date expiredDate) {
+        this.cardNum = cardNum;
+        this.cardHolder = cardHolder;
+        this.policyOwner = policyOwner;
+        this.expiredDate = expiredDate;
     }
 
     public String getCardNum() {
@@ -37,6 +48,8 @@ public class InsuranceCard {
     public Date getExpiredDate() {
         return expiredDate;
     }
+
+
 
     // Set the card number whenever the card is created
     // The card number is 10 digits long, generate randomly, and unique (The num can start with 0)

@@ -13,15 +13,19 @@ class Main {
 
 
 //        Menu insuranceClaimsMenu = new Menu();
-//        insuranceClaimsMenu.setTitle("Welcome to Insurance Claims Management System");
+//        insuranceClaimsMenu.setTitle("Welcome to the Insurance Claims Management System");
 //
 //        // Add menu items
 //        MenuItem customer = new MenuItem("Customer");
 //        customer.setSubMenuTitle("\nCustomer Operations");
-//        customer.addSubMenu(new MenuItem("Add Customer"));
-//        customer.addSubMenu(new MenuItem("View Customer"));
-//        customer.addSubMenu(new MenuItem("Update Customer"));
-//        customer.addSubMenu(new MenuItem("Delete Customer"));
+//        customer.addSubMenu(new MenuItem("Add Policy Holder"));
+//        customer.addSubMenu(new MenuItem("View Policy Holder"));
+//        customer.addSubMenu(new MenuItem("Update Policy Holder"));
+//        customer.addSubMenu(new MenuItem("Delete Policy Holder"));
+//        customer.addSubMenu(new MenuItem("Add Dependent"));
+//        customer.addSubMenu(new MenuItem("View Dependent"));
+//        customer.addSubMenu(new MenuItem("Update Dependent"));
+//        customer.addSubMenu(new MenuItem("Delete Dependent"));
 //        insuranceClaimsMenu.addItem(customer);
 //
 //        MenuItem admin = new MenuItem("Admin");
@@ -43,8 +47,17 @@ class Main {
 //        insuranceClaimsMenuService.start();
 
 
+        PolicyHolder.loadPolicyHoldersFromFile();
 
-    PolicyHolder.displayPolicyHolders();
+        // Add a dependent to the policyholder
+        PolicyHolder.addDependentToPolicyHolder("1208184180", "Hunter Biden");
+        PolicyHolder.addDependentToPolicyHolder("1208184180", "Jill Biden");
+        PolicyHolder.addDependentToPolicyHolder("1208184180", "Ashley Biden");
+        PolicyHolder.addDependentToPolicyHolder("1208184180", "Beau Biden");
+
+        // Print the policyholder and their dependents
+        System.out.println();
+
 
 
 
