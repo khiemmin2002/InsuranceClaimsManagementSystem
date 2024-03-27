@@ -1,4 +1,4 @@
-package models;
+package process_interfaces;
 
 public interface FileDataService {
     public void writeDataToFile();
