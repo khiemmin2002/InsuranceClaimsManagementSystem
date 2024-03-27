@@ -2,6 +2,7 @@ package controllers;
 
 import models.InsuranceCard;
 import views.InsuranceCardView;
+import services.InsuranceCardDataService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +36,8 @@ public class InsuranceCardController {
         }
 
         InsuranceCard insuranceCardModel = new InsuranceCard(cardHolder, policyOwner, expiredDate);
+
+        insuranceCardDataService.saveInsuranceCard(card);
 
         insuranceCardView.displayInsuranceCardDetails(
                 insuranceCardModel.getCardNum(),
