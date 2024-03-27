@@ -1,3 +1,5 @@
+package models;
+
 public abstract class Customer {
     private String id;
     private String fullName;

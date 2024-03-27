@@ -1,3 +1,7 @@
+import models.*;
+import controllers.*;
+import views.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,17 +50,16 @@ class Main {
 //        // Display the menu to the user and handle their choices
 //        insuranceClaimsMenuService.start();
 
+        InsuranceCardView view = new InsuranceCardView();
 
-        PolicyHolder.loadPolicyHoldersFromFile();
+        // Create a new InsuranceCard model here if you choose to keep the original constructor
+        InsuranceCard model = new InsuranceCard(); // Default constructor or provide parameters as needed
 
-        // Add a dependent to the policyholder
-        PolicyHolder.addDependentToPolicyHolder("1208184180", "Hunter Biden");
-        PolicyHolder.addDependentToPolicyHolder("1208184180", "Jill Biden");
-        PolicyHolder.addDependentToPolicyHolder("1208184180", "Ashley Biden");
-        PolicyHolder.addDependentToPolicyHolder("1208184180", "Beau Biden");
+        InsuranceCardController controller = new InsuranceCardController(model, view);
 
-        // Print the policyholder and their dependents
-        System.out.println();
+        // Proceed with adding a new insurance card
+        controller.addInsuranceCard();
+
 
 
 

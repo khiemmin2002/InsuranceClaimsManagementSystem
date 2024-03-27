@@ -1,3 +1,5 @@
+package models;
+
 public interface FileDataService {
     public void writeDataToFile();
     public String readDataToFile();

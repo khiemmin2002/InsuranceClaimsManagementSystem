@@ -36,12 +36,6 @@ public class MenuService {
             } else {
                 System.out.println("\nYou have selected: " + selectedItem.getName() + "\n");
                 // Add the logic to handle the selected option here
-                if (selectedItem.getName().equals("Add Policy Holder")) {
-                    PolicyHolder.addPolicyHolder();
-                }
-                if (selectedItem.getName().equals("View Policy Holder")) {
-                    PolicyHolder.displayPolicyHolders();
-                }
             }
             // If we are in a sub-menu, loop will allow choosing another option in the same sub-menu
             // If "Return to previous page" is selected, we exit this method invocation and go back up one level
