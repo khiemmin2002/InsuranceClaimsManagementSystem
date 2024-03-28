@@ -13,12 +13,14 @@ public class InsuranceCard {
     private String cardHolder;
     private String policyOwner;
     private Date expiredDate;
+    private String cardHolderID;
 
     public InsuranceCard() {
         cardNum = generateCardNum();
         cardHolder = "Default";
         policyOwner = "Default";
         expiredDate = null;
+        cardHolderID = "Default";
     }
 
     public InsuranceCard(String cardHolder, String policyOwner, Date expiredDate) {
@@ -26,23 +28,26 @@ public class InsuranceCard {
         this.cardHolder = cardHolder;
         this.policyOwner = policyOwner;
         this.expiredDate = expiredDate;
+        this.cardHolderID = "Default";
     }
 
-    // This constructor is used when taking data from the file
+    // Constructor for loading card from file (no new card number generation)
     public InsuranceCard(String cardNum, String cardHolder, String policyOwner, Date expiredDate) {
-        this.cardNum = cardNum;
+        this.cardNum = cardNum; // Use the existing card number
         this.cardHolder = cardHolder;
         this.policyOwner = policyOwner;
         this.expiredDate = expiredDate;
+        this.cardHolderID = "Default";
+    }
+
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
     }
 
     public String getCardNum() {
         return cardNum;
     }
 
-    public void setCardNum(String cardNum) {
-        this.cardNum = cardNum;
-    }
 
     public String getCardHolder() {
         return cardHolder;
@@ -89,6 +94,16 @@ public class InsuranceCard {
             return "Date is not set";
         }
         return new SimpleDateFormat("MM/dd/yyyy").format(expiredDate);
+    }
+
+    @Override
+    public String toString() {
+        // Format the expired date to mm/dd/yyyy
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String expiredDateString = expiredDate != null ? dateFormat.format(expiredDate) : "N/A";
+
+        // Each attribute is separated by a comma
+        return cardNum + "," + cardHolder + "," + policyOwner + "," + expiredDateString + "," + cardHolderID;
     }
 
 }

@@ -1,5 +1,6 @@
 import models.*;
 import controllers.*;
+import system.InsuranceList;
 import views.*;
 
 import java.text.ParseException;
@@ -50,15 +51,21 @@ class Main {
 //        // Display the menu to the user and handle their choices
 //        insuranceClaimsMenuService.start();
 
+        InsuranceList insuranceList = new InsuranceList("data/Insurance.txt");
+        insuranceList.loadFromFile(); // Load data from file at startup
+
+        // Initialize the view component.
         InsuranceCardView view = new InsuranceCardView();
 
-        // Create a new InsuranceCard model here if you choose to keep the original constructor
-        InsuranceCard model = new InsuranceCard(); // Default constructor or provide parameters as needed
-
-        InsuranceCardController controller = new InsuranceCardController(model, view);
+        // Initialize the controller with the view and the list.
+        InsuranceCardController controller = new InsuranceCardController(view, insuranceList);
 
         // Proceed with adding a new insurance card
-        controller.addInsuranceCard();
+//        controller.addInsuranceCard();
+
+        // Update the insurance card
+
+        controller.displayAllInsuranceCards();
 
 
 

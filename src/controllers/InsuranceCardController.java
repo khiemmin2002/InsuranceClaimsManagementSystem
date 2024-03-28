@@ -1,21 +1,27 @@
 package controllers;
 
 import models.InsuranceCard;
+import system.InsuranceList;
 import views.InsuranceCardView;
-import services.InsuranceCardDataService;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class InsuranceCardController {
-    private InsuranceCard insuranceCardModel;
-    private InsuranceCardView insuranceCardView;
+    private final InsuranceCardView insuranceCardView;
+    private final InsuranceList insuranceList;
 
-    public InsuranceCardController(InsuranceCard insuranceCardModel, InsuranceCardView insuranceCardView) {
-        this.insuranceCardModel = insuranceCardModel;
+
+    public InsuranceCardController(InsuranceCardView insuranceCardView, InsuranceList insuranceList) {
         this.insuranceCardView = insuranceCardView;
+        this.insuranceList = insuranceList;
     }
 
     public void addInsuranceCard() {
@@ -35,16 +41,10 @@ public class InsuranceCardController {
             insuranceCardView.displayMessage("Failed to parse the date!");
         }
 
-        InsuranceCard insuranceCardModel = new InsuranceCard(cardHolder, policyOwner, expiredDate);
+        InsuranceCard newInsuranceCard = new InsuranceCard(cardHolder, policyOwner, expiredDate);
+        insuranceList.addInsuranceCard(newInsuranceCard); // Add to list
+        saveInsuranceCardToFile(newInsuranceCard); // Save to file
 
-        insuranceCardDataService.saveInsuranceCard(card);
-
-        insuranceCardView.displayInsuranceCardDetails(
-                insuranceCardModel.getCardNum(),
-                insuranceCardModel.getCardHolder(),
-                insuranceCardModel.getPolicyOwner(),
-                insuranceCardModel.getFormattedExpiredDate()
-        );
     }
 
     // Methods to handle date input
@@ -113,4 +113,91 @@ public class InsuranceCardController {
         }
         return true;
     }
+
+    // Display the insurance card details
+    public void displayInsuranceCardDetails(InsuranceCard insuranceCardModel) {
+        insuranceCardView.displayInsuranceCardDetails(
+                insuranceCardModel.getCardNum(),
+                insuranceCardModel.getCardHolder(),
+                insuranceCardModel.getPolicyOwner(),
+                insuranceCardModel.getFormattedExpiredDate()
+        );
+    }
+
+    // Saving the insurance card details to the file
+    public void saveInsuranceCardToFile(InsuranceCard insuranceCard) {
+        // Get the root path of the project where the 'data' directory resides
+        String projectRootPath = System.getProperty("user.dir");
+        String dataDirectoryPath = projectRootPath + File.separator + "data";
+        String fileName = "Insurance.txt";
+
+        File dataDirectory = new File(dataDirectoryPath);
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir(); // If the data directory doesn't exist, create it.
+        }
+
+        File dataFile = new File(dataDirectory, fileName);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true))) {
+            writer.write(insuranceCard.toString());
+            writer.newLine(); // Add a newline after writing the insurance card details
+            insuranceCardView.displayMessage("Insurance card saved successfully to " + dataFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file.");
+            insuranceCardView.displayMessage("Failed to save the insurance card to " + dataFile.getAbsolutePath());
+        }
+    }
+
+    // Read the insurance card details from the file
+    public void displayAllInsuranceCards() {
+        List<InsuranceCard> cards = insuranceList.getInsuranceCards();
+        if (cards.isEmpty()) {
+            insuranceCardView.displayMessage("No insurance cards available.");
+        } else {
+            for (InsuranceCard card : cards) {
+                displayInsuranceCardDetails(card);
+            }
+        }
+    }
+
+    public void updateInsuranceCard() {
+        String cardNumber = insuranceCardView.promptForInput("Enter the card number of the insurance card to update: ");
+        InsuranceCard cardToUpdate = insuranceList.getInsuranceCard(cardNumber);
+
+        if (cardToUpdate != null) {
+            // Since policyOwner and other variables are not globally defined, you need to prompt for them again or derive them from existing data
+            String cardHolder = insuranceCardView.promptForInput("Enter the new card holder's name: ");
+            String policyOwner = insuranceCardView.promptForInput("Enter the new policy owner's name: ");
+
+            int year = promptForYear();
+            int month = promptForMonth();
+            int day = promptForDay(year, month);
+
+            Date expiredDate = null;
+            try {
+                expiredDate = new SimpleDateFormat("MM/dd/yyyy").parse(String.format("%02d/%02d/%04d", month, day, year));
+            } catch (Exception e) {
+                insuranceCardView.displayMessage("Failed to parse the date!");
+            }
+
+            // Create the updated card object
+            InsuranceCard updatedCard = new InsuranceCard(cardHolder, policyOwner, expiredDate);
+
+            // Update the card in the list
+            insuranceList.updateInsuranceCard(cardNumber, updatedCard);
+            insuranceCardView.displayMessage("Insurance card updated successfully.");
+        } else {
+            insuranceCardView.displayMessage("Insurance card not found.");
+        }
+    }
+
+
+    public void deleteInsuranceCard() {
+        // Prompt user for card number
+        String cardNumber = insuranceCardView.promptForInput("Enter the card number of the insurance card to delete: ");
+
+        // Delete the card from the list
+        insuranceList.deleteInsuranceCard(cardNumber);
+        insuranceCardView.displayMessage("Insurance card deleted successfully.");
+    }
+
 }
