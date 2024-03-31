@@ -1,1 +1,7 @@
-c4633889,Cristiano Ronaldo,3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
+c8639245,Cristiano Ronaldo,3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
+c5264434,Lionel Messi,2594097131,Lionel Messi,Inter Miami,06/03/2032
+c9306934,Kylian Mbappe,3880495219,Kylian Mbappe,PSG,03/31/2029
+c1641782,Erling Haaland,null
+c5525810,Marcus Rashford,null
+c7369516,LeBron James,null
+c0756618,Stephen Curry,null

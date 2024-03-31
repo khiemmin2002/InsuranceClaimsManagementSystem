@@ -44,7 +44,7 @@ public class PolicyHolderList {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String[] parts = line.split(",");
 
-        if (parts.length == 4) {
+        if (parts.length == 3) {
             try {
                 return new PolicyHolder(parts[0], parts[1]);
             } catch (Exception e) {
@@ -108,6 +108,14 @@ public class PolicyHolderList {
     public void addPolicyHolder(PolicyHolder policyHolder) {
         policyHolders.add(policyHolder);
         saveToFile(); // Save the new list to the file
+    }
+
+    public boolean deletePolicyHolder(String customerID) {
+        boolean removed = policyHolders.removeIf(policyHolder -> policyHolder.getId().equals(customerID));
+        if (removed) {
+            saveToFile();
+        }
+        return removed;
     }
 
 }

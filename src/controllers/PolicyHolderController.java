@@ -98,4 +98,14 @@ public class PolicyHolderController {
         }
     }
 
+    public void deletePolicyHolder() {
+        String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID to delete: ");
+        boolean deleted = policyHolderList.deletePolicyHolder(policyHolderId);
+        if (deleted) {
+            policyHolderView.displayMessage("Policy holder deleted successfully.");
+        } else {
+            policyHolderView.displayMessage("Policy holder not found.");
+        }
+    }
+
 }
