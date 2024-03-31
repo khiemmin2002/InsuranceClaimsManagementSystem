@@ -1,8 +1,10 @@
 import models.*;
 import controllers.*;
 import system.InsuranceList;
+import system.PolicyHolderList;
 import views.*;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +16,7 @@ import java.util.Date;
 
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 
 //        Menu insuranceClaimsMenu = new Menu();
@@ -54,6 +56,9 @@ class Main {
         InsuranceList insuranceList = new InsuranceList("data/Insurance.txt");
         insuranceList.loadFromFile(); // Load data from file at startup
 
+        PolicyHolderList policyHolderList = new PolicyHolderList("data/PolicyHolder.txt");
+        policyHolderList.loadFromFile(); // Load data from file at startup
+
         // Initialize the view component.
         InsuranceCardView view = new InsuranceCardView();
 
@@ -63,13 +68,24 @@ class Main {
         // Proceed with adding a new insurance card
 //        controller.addInsuranceCard();
 
-        // Update the insurance card
-
         controller.displayAllInsuranceCards();
 
+        // Update the insurance card
+//        controller.updateInsuranceCard();
+
+        // Delete the insurance card
+//        controller.deleteInsuranceCard();
+
+//         PolicyHolder
+        PolicyHolderView policyHolderView = new PolicyHolderView();
+        PolicyHolderController policyHolderController = new PolicyHolderController(policyHolderView, policyHolderList, insuranceList);
 
 
+        policyHolderController.displayAllPolicyHolders();
+
+//        policyHolderController.assignInsuranceCardToPolicyHolder();
 
 
+        policyHolderController.displayAllPolicyHolders();
     }
 }

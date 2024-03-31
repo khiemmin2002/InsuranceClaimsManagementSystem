@@ -1,9 +1,14 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Customer {
     private String id;
     private String fullName;
     private InsuranceCard insuranceCard;
+    private List<Claim> claims = new ArrayList<>();
+
 
     // Default constructor with default values
     public Customer() {
@@ -18,8 +23,28 @@ public abstract class Customer {
         this.insuranceCard = insuranceCard;
     }
 
+    public Customer(String id, String fullName, InsuranceCard insuranceCard) {
+        this.id = id;
+        this.fullName = fullName;
+        this.insuranceCard = insuranceCard;
+    }
+
+    public Customer(String fullName) {
+        this.id = generateCustomerID(); // Generate ID for every Customer instance
+        this.fullName = fullName;
+    }
+
+    public Customer(String id, String fullName) {
+        this.id = id;
+        this.fullName = fullName;
+    }
+
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getId() {
@@ -46,4 +71,9 @@ public abstract class Customer {
         return idBuilder.toString();
     }
 
+    @Override
+    public String toString() {
+        String insuranceCardDetails = (insuranceCard != null) ? insuranceCard.toString() : "No Insurance Card";
+        return id + "," + fullName + "," + insuranceCardDetails;
+    }
 }

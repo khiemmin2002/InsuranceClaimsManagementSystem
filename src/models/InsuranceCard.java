@@ -9,18 +9,16 @@ import java.util.Scanner;
 import java.util.function.IntPredicate;
 
 public class InsuranceCard {
-    private String cardNum;
+    private final String cardNum;
     private String cardHolder;
     private String policyOwner;
     private Date expiredDate;
-    private String cardHolderID;
 
     public InsuranceCard() {
         cardNum = generateCardNum();
         cardHolder = "Default";
         policyOwner = "Default";
         expiredDate = null;
-        cardHolderID = "Default";
     }
 
     public InsuranceCard(String cardHolder, String policyOwner, Date expiredDate) {
@@ -28,7 +26,6 @@ public class InsuranceCard {
         this.cardHolder = cardHolder;
         this.policyOwner = policyOwner;
         this.expiredDate = expiredDate;
-        this.cardHolderID = "Default";
     }
 
     // Constructor for loading card from file (no new card number generation)
@@ -37,12 +34,8 @@ public class InsuranceCard {
         this.cardHolder = cardHolder;
         this.policyOwner = policyOwner;
         this.expiredDate = expiredDate;
-        this.cardHolderID = "Default";
     }
 
-    public void setCardNum(String cardNum) {
-        this.cardNum = cardNum;
-    }
 
     public String getCardNum() {
         return cardNum;
@@ -103,7 +96,7 @@ public class InsuranceCard {
         String expiredDateString = expiredDate != null ? dateFormat.format(expiredDate) : "N/A";
 
         // Each attribute is separated by a comma
-        return cardNum + "," + cardHolder + "," + policyOwner + "," + expiredDateString + "," + cardHolderID;
+        return cardNum + "," + cardHolder + "," + policyOwner + "," + expiredDateString;
     }
 
 }

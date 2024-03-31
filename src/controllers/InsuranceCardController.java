@@ -24,7 +24,7 @@ public class InsuranceCardController {
         this.insuranceList = insuranceList;
     }
 
-    public void addInsuranceCard() {
+    public void addInsuranceCard() throws IOException{
         insuranceCardView.displayMessage("Adding an insurance card...");
 
         String cardHolder = insuranceCardView.promptForInput("Enter the card holder's name: ");
@@ -125,18 +125,15 @@ public class InsuranceCardController {
     }
 
     // Saving the insurance card details to the file
-    public void saveInsuranceCardToFile(InsuranceCard insuranceCard) {
-        // Get the root path of the project where the 'data' directory resides
-        String projectRootPath = System.getProperty("user.dir");
-        String dataDirectoryPath = projectRootPath + File.separator + "data";
-        String fileName = "Insurance.txt";
+    public void saveInsuranceCardToFile(InsuranceCard insuranceCard) throws IOException {
+        String fileName = "./data/Insurance.txt";
+        File dataFile = new File(fileName);
 
-        File dataDirectory = new File(dataDirectoryPath);
-        if (!dataDirectory.exists()) {
-            dataDirectory.mkdir(); // If the data directory doesn't exist, create it.
+        // Check and create the data directory if it does not exist
+        if (!dataFile.getParentFile().exists() && !dataFile.getParentFile().mkdirs()) {
+            throw new IOException("Failed to create directory " + dataFile.getParentFile().getAbsolutePath());
         }
 
-        File dataFile = new File(dataDirectory, fileName);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true))) {
             writer.write(insuranceCard.toString());
             writer.newLine(); // Add a newline after writing the insurance card details
@@ -180,7 +177,7 @@ public class InsuranceCardController {
             }
 
             // Create the updated card object
-            InsuranceCard updatedCard = new InsuranceCard(cardHolder, policyOwner, expiredDate);
+            InsuranceCard updatedCard = new InsuranceCard(cardNumber, cardHolder, policyOwner, expiredDate);
 
             // Update the card in the list
             insuranceList.updateInsuranceCard(cardNumber, updatedCard);

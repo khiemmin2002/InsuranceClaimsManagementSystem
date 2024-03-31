@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class InsuranceList {
     private List<InsuranceCard> insuranceCards;
     private String filePath;
@@ -43,7 +44,7 @@ public class InsuranceList {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String[] parts = line.split(",");
 
-        if (parts.length == 5) {
+        if (parts.length == 4) {
             try {
                 Date expiredDate = dateFormat.parse(parts[3]);
                 return new InsuranceCard(parts[0], parts[1], parts[2], expiredDate);
@@ -55,7 +56,7 @@ public class InsuranceList {
         return null;
     }
 
-    private void saveToFile() {
+    public void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
             for (InsuranceCard card : insuranceCards) {
                 writer.write(cardToFileFormat(card));

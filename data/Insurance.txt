@@ -1,1 +1,7 @@
-3893511870,Joe Biden,US Government,02/29/2028,Default
+3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
+2594097131,Lionel Messi,Inter Miami,06/03/2032
+3880495219,Kylian Mbappe,PSG,03/31/2029
+0288350795,Erling Haaland,Manchester City,11/05/2027
+3893368015,Marcus Rashford,Manchester United,07/29/2035
+8062494905,LeBron James,Los Angeles Lakers,07/04/2028
+0364628045,Stephen Curry,Golden State Warriors,07/05/2032
