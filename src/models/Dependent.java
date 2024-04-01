@@ -20,6 +20,13 @@ public class Dependent extends Customer {
         // Set other necessary fields as required
     }
 
+    public String getPolicyHolderID() {
+        return policyHolderID;
+    }
+
+    public void setPolicyHolderID(String policyHolderID) {
+        this.policyHolderID = policyHolderID;
+    }
 
     @Override
     public String toString() {

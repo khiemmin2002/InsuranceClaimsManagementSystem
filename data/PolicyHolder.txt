@@ -1,7 +1,8 @@
-c8639245,Cristiano Ronaldo,3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
+c1641782,Erling Haaland,No Insurance Card
+c8098691,Chú Năm,5618663787,Chú Năm,CIA,05/02/2027
 c5264434,Lionel Messi,2594097131,Lionel Messi,Inter Miami,06/03/2032
+c5525810,Marcus Rashford,No Insurance Card
 c9306934,Kylian Mbappe,3880495219,Kylian Mbappe,PSG,03/31/2029
-c1641782,Erling Haaland,null
-c5525810,Marcus Rashford,null
-c7369516,LeBron James,null
-c0756618,Stephen Curry,null
+c8639245,Cristiano Ronaldo,3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
+c0756618,Stephen Curry,No Insurance Card
+c7369516,LeBron James,No Insurance Card

@@ -108,7 +108,7 @@ class Main {
                     break;
                 case 5:
                     // Delete dependent
-                    System.out.println("This feature is under development.");
+                    policyHolderController.deleteDependentFromPolicyHolder();
                     break;
                 case 6:
                     // Assign insurance card

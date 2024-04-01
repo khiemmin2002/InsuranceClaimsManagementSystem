@@ -49,4 +49,8 @@ public class PolicyHolder extends Customer {
     public void addDependent(Dependent dependent) {
         dependents.add(dependent);
     }
+
+    public void removeDependent(Dependent dependent) {
+        this.dependents.removeIf(d -> d.getId().equals(dependent.getId()));
+    }
 }

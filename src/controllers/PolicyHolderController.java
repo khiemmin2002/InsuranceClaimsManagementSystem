@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Customer;
 import models.Dependent;
 import models.InsuranceCard;
 import models.PolicyHolder;
@@ -9,19 +8,16 @@ import system.InsuranceList;
 import system.PolicyHolderList;
 import system.DependentList;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PolicyHolderController {
     private final PolicyHolderView policyHolderView;
     private final PolicyHolderList policyHolderList;
-
     private final InsuranceList insuranceList;
     private final DependentList dependentList;
-
 
     public PolicyHolderController(PolicyHolderView policyHolderView, PolicyHolderList policyHolderList, InsuranceList insuranceList, DependentList dependentList) {
         this.policyHolderView = policyHolderView;
@@ -30,107 +26,96 @@ public class PolicyHolderController {
         this.dependentList = dependentList;
     }
 
-    // Add a policyholder to the model
     public void addPolicyHolder() throws IOException {
         policyHolderView.displayMessage("Adding a new policy holder...");
         String fullName = policyHolderView.promptForInput("Enter the full name of the policy holder: ");
-
         PolicyHolder newPolicyHolder = new PolicyHolder(fullName);
-
-        displayPolicyHolderDetails(newPolicyHolder);
-        savePolicyHolderToFile(newPolicyHolder);
+        policyHolderList.addPolicyHolder(newPolicyHolder);
+        policyHolderView.displayMessage("Policy holder added successfully.");
     }
 
-    // Display the policyholder details
-    public void displayPolicyHolderDetails(PolicyHolder policyHolder) {
-        policyHolderView.displayPolicyHolderDetails(policyHolder);
-    }
-
-    public void savePolicyHolderToFile(PolicyHolder policyHolder) throws IOException {
-        String fileName = "./data/PolicyHolder.txt";
-        File dataFile = new File(fileName);
-
-        // Check and create the data directory if it does not exist
-        if (!dataFile.getParentFile().exists() && !dataFile.getParentFile().mkdirs()) {
-            throw new IOException("Failed to create directory " + dataFile.getParentFile().getAbsolutePath());
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true))) {
-            writer.write(policyHolder.toString());
-            writer.newLine(); // Add a newline after writing the insurance card details
-            policyHolderView.displayMessage("Insurance card saved successfully to " + dataFile.getAbsolutePath());
-        } catch (IOException e) {
-            System.err.println("An error occurred while writing to the file.");
-            policyHolderView.displayMessage("Failed to save the insurance card to " + dataFile.getAbsolutePath());
-        }
-    }
-
-    // In PolicyHolderController.java
-
-
-    // Display all policyholder
     public void displayAllPolicyHolders() {
-        List<PolicyHolder> policyHolders = policyHolderList.getPolicyHolders();
-        if (policyHolders.isEmpty()) {
-            policyHolderView.displayMessage("No insurance cards available.");
-        } else {
-            for (PolicyHolder policyHolder : policyHolders) {
-                displayPolicyHolderDetails(policyHolder);
-            }
+        policyHolderView.displayMessage("\nDisplaying all policy holders (Sorted by ID):");
+
+        List<PolicyHolder> sortedPolicyHolders = policyHolderList.getPolicyHolders().values().stream()
+                .sorted(Comparator.comparing(PolicyHolder::getId))
+                .toList();
+
+        for (PolicyHolder policyHolder : sortedPolicyHolders) {
+            List<Dependent> sortedDependents = dependentList.getDependentsForPolicyHolder(policyHolder.getId()).stream()
+                    .sorted(Comparator.comparing(Dependent::getId))
+                    .collect(Collectors.toList());
+
+            // Call a method that handles the display of a policyholder and their dependents together
+            policyHolderView.displayPolicyHolderWithDependents(policyHolder, sortedDependents);
         }
     }
 
-    // Assign an insurance card to a policyholder
     public void assignInsuranceCardToPolicyHolder() {
         String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID: ");
         String cardNumber = policyHolderView.promptForInput("Enter the insurance card number: ");
-
-        PolicyHolder policyHolder = policyHolderList.getPolicyHolder(policyHolderId);
         InsuranceCard insuranceCard = insuranceList.getInsuranceCard(cardNumber);
 
-        if (policyHolder != null && insuranceCard != null) {
-            policyHolder.setInsuranceCard(insuranceCard);
-            policyHolderList.updatePolicyHolder(policyHolderId, policyHolder); // Assuming you have a method to update the policyholder in the list
-            policyHolderView.displayMessage("Insurance card " + cardNumber + " assigned to policyholder " + policyHolderId);
-        } else {
-            if (policyHolder == null) {
+        if (insuranceCard != null) {
+            PolicyHolder policyHolder = policyHolderList.getPolicyHolder(policyHolderId);
+            if (policyHolder != null) {
+                policyHolder.setInsuranceCard(insuranceCard);
+                policyHolderList.updatePolicyHolder(policyHolder);
+                policyHolderView.displayMessage("Insurance card assigned successfully.");
+            } else {
                 policyHolderView.displayMessage("Policyholder not found.");
             }
-            if (insuranceCard == null) {
-                policyHolderView.displayMessage("Insurance card not found.");
-            }
+        } else {
+            policyHolderView.displayMessage("Insurance card not found.");
         }
     }
 
     public void deletePolicyHolder() {
         String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID to delete: ");
-        boolean deleted = policyHolderList.deletePolicyHolder(policyHolderId);
-        if (deleted) {
+        if (policyHolderList.deletePolicyHolder(policyHolderId)) {
             policyHolderView.displayMessage("Policy holder deleted successfully.");
         } else {
             policyHolderView.displayMessage("Policy holder not found.");
         }
     }
 
-    // Adding a dependent to a policyholder
     public void addDependentToPolicyHolder() {
         String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID: ");
         PolicyHolder policyHolder = policyHolderList.getPolicyHolder(policyHolderId);
-
         if (policyHolder != null) {
             String fullName = policyHolderView.promptForInput("Enter the full name of the dependent: ");
-            // Fetch the insurance card from the policyholder
             InsuranceCard insuranceCard = policyHolder.getInsuranceCard();
-
-            // Create a new Dependent object with the insurance card
             Dependent newDependent = new Dependent(fullName, policyHolderId, insuranceCard);
-            dependentList.addDependent(newDependent); // Assuming you have a list called dependentList for managing dependents
-
-            policyHolderView.displayMessage("Dependent added successfully to policy holder with ID: " + policyHolderId);
+            dependentList.addDependent(newDependent);
+            policyHolderView.displayMessage("Dependent added successfully.");
         } else {
             policyHolderView.displayMessage("Policyholder not found.");
         }
     }
 
+    // Delete a dependent from a policy holder
+    public void deleteDependentFromPolicyHolder() {
+        String dependentId = policyHolderView.promptForInput("Enter the dependent's ID to delete: ");
+        Dependent dependent = dependentList.getDependent(dependentId);
+
+        if (dependent != null) {
+            // Remove the dependent from the dependent list
+            boolean isDeleted = dependentList.deleteDependent(dependentId);
+
+            if (isDeleted) {
+                // Optionally, remove the dependent from the policy holder's list of dependents
+                PolicyHolder policyHolder = policyHolderList.getPolicyHolder(dependent.getPolicyHolderID());
+                if (policyHolder != null) {
+                    policyHolder.removeDependent(dependent);
+                    policyHolderList.updatePolicyHolder(policyHolder);
+                }
+                policyHolderView.displayMessage("Dependent deleted successfully.");
+            } else {
+                policyHolderView.displayMessage("Failed to delete the dependent.");
+            }
+        } else {
+            policyHolderView.displayMessage("Dependent not found.");
+        }
+    }
 
 }

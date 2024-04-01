@@ -4,22 +4,21 @@ import models.InsuranceCard;
 import models.PolicyHolder;
 
 import java.io.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PolicyHolderList {
-    private List<PolicyHolder> policyHolders;
     private Map<String, PolicyHolder> policyHolders = new HashMap<>();
     private String filePath;
 
     public PolicyHolderList(String filePath) {
-        this.policyHolders = new ArrayList<>();
         this.filePath = filePath;
     }
 
-    public List<PolicyHolder> getPolicyHolders() {
-        return policyHolders;
+    public Map<String, PolicyHolder> getPolicyHolders() {
+        return new HashMap<>(policyHolders);
     }
 
     public void loadFromFile() {
@@ -30,11 +29,11 @@ public class PolicyHolderList {
                 while ((line = reader.readLine()) != null) {
                     PolicyHolder policyHolder = parseLineToPolicyHolder(line);
                     if (policyHolder != null) {
-                        policyHolders.add(policyHolder);
+                        policyHolders.put(policyHolder.getId(), policyHolder);
                     }
                 }
             } catch (IOException e) {
-                System.err.println("An error occurred while loading insurance cards from the file: " + e.getMessage());
+                System.err.println("An error occurred while loading policy holders from the file: " + e.getMessage());
             }
         }
     }
@@ -43,52 +42,35 @@ public class PolicyHolderList {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String[] parts = line.split(",");
 
-        if (parts.length == 3) {
-            try {
-                return new PolicyHolder(parts[0], parts[1]);
-            } catch (Exception e) {
-                System.err.println("Exception occurred: " + e.getMessage());
-                return null;
+        try {
+            if (parts.length >= 3) {
+                String id = parts[0];
+                String name = parts[1];
+                InsuranceCard insuranceCard = null;
+                if (parts.length == 6) {
+                    Date expiredDate = dateFormat.parse(parts[5]);
+                    insuranceCard = new InsuranceCard(parts[2], parts[3], parts[4], expiredDate);
+                }
+                return new PolicyHolder(id, name, insuranceCard);
             }
-        }
-
-        if (parts.length == 6) {
-            try {
-                Date expiredDate = dateFormat.parse(parts[5]);
-                return new PolicyHolder(parts[0], parts[1], new InsuranceCard(parts[2], parts[3], parts[4], expiredDate));
-            } catch (Exception e) {
-                System.err.println("Exception occurred: " + e.getMessage());
-                return null;
-            }
+        } catch (Exception e) {
+            System.err.println("Exception occurred: " + e.getMessage());
         }
         return null;
     }
 
-    // Get all policyholders
     public PolicyHolder getPolicyHolder(String customerID) {
-        for (PolicyHolder policyHolder : policyHolders) {
-            if (policyHolder.getId().equals(customerID)) {
-                return policyHolder;
-            }
-        }
-        return null;
+        return policyHolders.get(customerID);
     }
 
-    // Updates the details of a specific policyholder
-    public void updatePolicyHolder(String customerID, PolicyHolder updatedPolicyHolder) {
-        for (int i = 0; i < policyHolders.size(); i++) {
-            if (policyHolders.get(i).getId().equals(customerID)) {
-                policyHolders.set(i, updatedPolicyHolder);
-                saveToFile(); // Save changes back to the file
-                break;
-            }
-        }
+    public void updatePolicyHolder(PolicyHolder updatedPolicyHolder) {
+        policyHolders.put(updatedPolicyHolder.getId(), updatedPolicyHolder);
+        saveToFile();
     }
 
-    // Saves the current list of policyholders back to the file
     private void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
-            for (PolicyHolder policyHolder : policyHolders) {
+            for (PolicyHolder policyHolder : policyHolders.values()) {
                 writer.write(policyHolderToFileFormat(policyHolder));
                 writer.newLine();
             }
@@ -97,24 +79,22 @@ public class PolicyHolderList {
         }
     }
 
-    // Helper method to convert a policyholder object to a string format for saving to the file
     private String policyHolderToFileFormat(PolicyHolder policyHolder) {
-        return policyHolder.getId() + "," + policyHolder.getFullName() + "," + policyHolder.getInsuranceCard();
-        // Add other details as necessary
+        // Assume InsuranceCard is nullable and properly handled in PolicyHolder's toString method
+        return policyHolder.toString();
     }
 
-    // Add a new policyholder to the list
     public void addPolicyHolder(PolicyHolder policyHolder) {
-        policyHolders.add(policyHolder);
-        saveToFile(); // Save the new list to the file
+        policyHolders.put(policyHolder.getId(), policyHolder);
+        saveToFile();
     }
 
     public boolean deletePolicyHolder(String customerID) {
-        boolean removed = policyHolders.removeIf(policyHolder -> policyHolder.getId().equals(customerID));
-        if (removed) {
-            saveToFile();
+        if (policyHolders.containsKey(customerID)) {
+            policyHolders.remove(customerID);
+            saveToFile(); // This saves the change to the file immediately
+            return true;
         }
-        return removed;
+        return false;
     }
-
 }
