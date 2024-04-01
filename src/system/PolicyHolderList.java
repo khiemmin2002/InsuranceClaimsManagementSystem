@@ -6,12 +6,11 @@ import models.PolicyHolder;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class PolicyHolderList {
     private List<PolicyHolder> policyHolders;
+    private Map<String, PolicyHolder> policyHolders = new HashMap<>();
     private String filePath;
 
     public PolicyHolderList(String filePath) {

@@ -1,5 +1,6 @@
 import models.*;
 import controllers.*;
+import system.DependentList;
 import system.InsuranceList;
 import system.PolicyHolderList;
 import views.*;
@@ -26,13 +27,16 @@ class Main {
         PolicyHolderList policyHolderList = new PolicyHolderList("data/PolicyHolder.txt");
         policyHolderList.loadFromFile();
 
+        DependentList dependentList = new DependentList("data/Dependent.txt");
+        dependentList.loadFromFile();
+
         // Setup Views
         InsuranceCardView insuranceCardView = new InsuranceCardView();
         PolicyHolderView policyHolderView = new PolicyHolderView();
 
         // Setup Controllers
         InsuranceCardController insuranceCardController = new InsuranceCardController(insuranceCardView, insuranceList);
-        PolicyHolderController policyHolderController = new PolicyHolderController(policyHolderView, policyHolderList, insuranceList);
+        PolicyHolderController policyHolderController = new PolicyHolderController(policyHolderView, policyHolderList, insuranceList , dependentList);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -100,7 +104,7 @@ class Main {
                     break;
                 case 4:
                     // Add dependent
-                    System.out.println("This feature is under development.");
+                    policyHolderController.addDependentToPolicyHolder();
                     break;
                 case 5:
                     // Delete dependent

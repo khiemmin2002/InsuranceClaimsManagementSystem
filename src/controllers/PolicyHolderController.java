@@ -1,11 +1,13 @@
 package controllers;
 
 import models.Customer;
+import models.Dependent;
 import models.InsuranceCard;
 import models.PolicyHolder;
 import views.PolicyHolderView;
 import system.InsuranceList;
 import system.PolicyHolderList;
+import system.DependentList;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,12 +20,14 @@ public class PolicyHolderController {
     private final PolicyHolderList policyHolderList;
 
     private final InsuranceList insuranceList;
+    private final DependentList dependentList;
 
 
-    public PolicyHolderController(PolicyHolderView policyHolderView, PolicyHolderList policyHolderList, InsuranceList insuranceList) {
+    public PolicyHolderController(PolicyHolderView policyHolderView, PolicyHolderList policyHolderList, InsuranceList insuranceList, DependentList dependentList) {
         this.policyHolderView = policyHolderView;
         this.policyHolderList = policyHolderList;
         this.insuranceList = insuranceList;
+        this.dependentList = dependentList;
     }
 
     // Add a policyholder to the model
@@ -107,5 +111,26 @@ public class PolicyHolderController {
             policyHolderView.displayMessage("Policy holder not found.");
         }
     }
+
+    // Adding a dependent to a policyholder
+    public void addDependentToPolicyHolder() {
+        String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID: ");
+        PolicyHolder policyHolder = policyHolderList.getPolicyHolder(policyHolderId);
+
+        if (policyHolder != null) {
+            String fullName = policyHolderView.promptForInput("Enter the full name of the dependent: ");
+            // Fetch the insurance card from the policyholder
+            InsuranceCard insuranceCard = policyHolder.getInsuranceCard();
+
+            // Create a new Dependent object with the insurance card
+            Dependent newDependent = new Dependent(fullName, policyHolderId, insuranceCard);
+            dependentList.addDependent(newDependent); // Assuming you have a list called dependentList for managing dependents
+
+            policyHolderView.displayMessage("Dependent added successfully to policy holder with ID: " + policyHolderId);
+        } else {
+            policyHolderView.displayMessage("Policyholder not found.");
+        }
+    }
+
 
 }

@@ -46,5 +46,7 @@ public class PolicyHolder extends Customer {
     }
 
 
-
+    public void addDependent(Dependent dependent) {
+        dependents.add(dependent);
+    }
 }

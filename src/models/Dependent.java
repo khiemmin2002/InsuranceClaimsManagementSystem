@@ -3,33 +3,28 @@ package models;
 import java.util.Scanner;
 
 public class Dependent extends Customer {
-    private PolicyHolder policyHolder;
+    private String policyHolderID;
 
     public Dependent() {
         super();
     }
 
-    public Dependent(String fullName, InsuranceCard insuranceCard) {
-        super(fullName, insuranceCard);
+    public Dependent(String fullName) {
+        super(fullName);
     }
 
-    public PolicyHolder getPolicyHolder() {
-        return policyHolder;
-    }
 
-    public void setPolicyHolder(PolicyHolder policyHolder) {
-        this.policyHolder = policyHolder;
+    public Dependent(String fullName, String policyHolderId, InsuranceCard insuranceCard) {
+        super(fullName, insuranceCard); // Assuming the Customer (superclass) constructor can handle this setup
+        this.policyHolderID = policyHolderId;
+        // Set other necessary fields as required
     }
-
-    // Assign insurance card
-    public void assignInsuranceCard(InsuranceCard insuranceCard) {
-        setInsuranceCard(insuranceCard);
-    }
-
 
 
     @Override
     public String toString() {
-        return String.format("Customer ID: %s, Dependent Name: %s\nInsurance Card: %s", getId(), getFullName(), getInsuranceCard().toString());
+        // Assuming the format is dependentID,dependentName,insurance,policyHolderID
+        String insuranceDetails = getInsuranceCard() != null ? getInsuranceCard().toString() : "No Insurance";
+        return String.format("%s,%s,%s,%s", getId(), getFullName(), insuranceDetails, policyHolderID);
     }
 }
