@@ -1,12 +1,8 @@
 package controllers;
 
-import models.Dependent;
-import models.InsuranceCard;
-import models.PolicyHolder;
-import views.PolicyHolderView;
-import system.InsuranceList;
-import system.PolicyHolderList;
-import system.DependentList;
+import models.*;
+import views.*;
+import system.*;
 
 import java.io.IOException;
 import java.util.Comparator;

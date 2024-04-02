@@ -1,2 +1,14 @@
+c2818813,Ronaldo Child 1,c8639245
+c9158318,Rashford Child 1,c5525810
+c1825984,LeBron Child 2,c7369516
+c7205779,LeBron Child 1,c7369516
+c6831978,Ronaldo Child 2,c8639245
+c8732926,Curry Child 1,c0756618
 c9769247,Chú Năm Son 1,c8098691
+c5544369,Haaland Child 2,c1641782
+c9258545,Curry Child 2,c0756618
+c6206015,Rashford Child 2,c5525810
+c1112736,Messi Child 2,c5264434
 c8941885,Chú Năm Son 2,c8098691
+c1892267,Haaland Child 1,c1641782
+c3012716,Messi Child 1,c5264434

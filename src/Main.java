@@ -1,3 +1,8 @@
+/**
+ * @author Min Chi Gia Khiem - S3878280
+ */
+
+
 import models.*;
 import controllers.*;
 import system.DependentList;
@@ -11,10 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-/**
- * @author Min Chi Gia Khiem - S3878280
- */
 
 
 

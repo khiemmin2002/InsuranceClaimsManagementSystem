@@ -69,13 +69,9 @@ public class InsuranceCard {
     // Set the card number whenever the card is created
     // The card number is 10 digits long, generate randomly, and unique (The num can start with 0)
     // This method now returns a String that represents the card number
-    public String generateCardNum() {
+    private String generateCardNum() {
         StringBuilder cardNumBuilder = new StringBuilder();
-        // Ensure the first digit can be '0'
-        cardNumBuilder.append((int) (Math.random() * 10));
-
-        // Now proceed with the rest of the digits
-        for (int i = 1; i < 10; i++) { // Start from 1 since we've already added the first digit
+        for (int i = 0; i < 10; i++) {
             cardNumBuilder.append((int) (Math.random() * 10));
         }
         return cardNumBuilder.toString();

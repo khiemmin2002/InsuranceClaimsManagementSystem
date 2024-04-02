@@ -5,13 +5,13 @@ import java.util.Scanner;
 public class InsuranceCardView {
 
     public void displayInsuranceCardDetails(String cardNumber, String cardHolder, String policyOwner, String expiredDate) {
-        System.out.println("\n-----------------------------------");
+        System.out.println("\n***********************************");
         System.out.println("Insurance Card Details:");
         System.out.println("Card Number: " + cardNumber);
         System.out.println("Card Holder: " + cardHolder);
         System.out.println("Policy Owner: " + policyOwner);
         System.out.println("Expired Date (mm/dd/yyyy): " + expiredDate);
-        System.out.println("-----------------------------------\n");
+        System.out.println("***********************************\n");
     }
 
     // Method to display messages to the user...

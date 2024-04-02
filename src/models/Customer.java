@@ -12,13 +12,13 @@ public abstract class Customer {
 
     // Default constructor with default values
     public Customer() {
-        this.id = generateCustomerID(); // Generate ID for every Customer instance
+        this.id = generateCustomerID();
         this.fullName = "Default";
         this.insuranceCard = new InsuranceCard();
     }
 
     public Customer(String fullName, InsuranceCard insuranceCard) {
-        this.id = generateCustomerID(); // Generate ID for every Customer instance
+        this.id = generateCustomerID();
         this.fullName = fullName;
         this.insuranceCard = insuranceCard;
     }
@@ -30,7 +30,7 @@ public abstract class Customer {
     }
 
     public Customer(String fullName) {
-        this.id = generateCustomerID(); // Generate ID for every Customer instance
+        this.id = generateCustomerID();
         this.fullName = fullName;
     }
 
@@ -64,11 +64,11 @@ public abstract class Customer {
     }
 
     public String generateCustomerID() {
-        StringBuilder idBuilder = new StringBuilder("c");
+        StringBuilder CustomerIDBuilder = new StringBuilder("c");
         for (int i = 0; i < 7; i++) {
-            idBuilder.append((int) (Math.random() * 10));
+            CustomerIDBuilder.append((int) (Math.random() * 10));
         }
-        return idBuilder.toString();
+        return CustomerIDBuilder.toString();
     }
 
     @Override

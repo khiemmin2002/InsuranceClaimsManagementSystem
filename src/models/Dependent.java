@@ -15,9 +15,8 @@ public class Dependent extends Customer {
 
 
     public Dependent(String fullName, String policyHolderId, InsuranceCard insuranceCard) {
-        super(fullName, insuranceCard); // Assuming the Customer (superclass) constructor can handle this setup
+        super(fullName, insuranceCard);
         this.policyHolderID = policyHolderId;
-        // Set other necessary fields as required
     }
 
     public String getPolicyHolderID() {
@@ -30,7 +29,6 @@ public class Dependent extends Customer {
 
     @Override
     public String toString() {
-        // Assuming the format is dependentID,dependentName,insurance,policyHolderID
         String insuranceDetails = getInsuranceCard() != null ? getInsuranceCard().toString() : "No Insurance";
         return String.format("%s,%s,%s,%s", getId(), getFullName(), insuranceDetails, policyHolderID);
     }

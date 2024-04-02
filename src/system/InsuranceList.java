@@ -5,24 +5,23 @@ import models.InsuranceCard;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class InsuranceList {
-    private List<InsuranceCard> insuranceCards;
+    private Map<String, InsuranceCard> insuranceCards;
     private String filePath;
 
     public InsuranceList(String filePath) {
-        this.insuranceCards = new ArrayList<>();
+        this.insuranceCards = new HashMap<>();
         this.filePath = filePath;
     }
 
-    public List<InsuranceCard> getInsuranceCards() {
+    public Map<String, InsuranceCard> getInsuranceCards() { // Return type changed
         return insuranceCards;
     }
 
+    // Load cards from file
     public void loadFromFile() {
         File file = new File(filePath);
         if (file.exists()) {
@@ -31,11 +30,11 @@ public class InsuranceList {
                 while ((line = reader.readLine()) != null) {
                     InsuranceCard card = parseLineToInsuranceCard(line);
                     if (card != null) {
-                        insuranceCards.add(card);
+                        insuranceCards.put(card.getCardNum(), card); // Use put method
                     }
                 }
             } catch (IOException e) {
-                System.err.println("An error occurred while loading insurance cards from the file: " + e.getMessage());
+                System.err.println("Error loading insurance cards: " + e.getMessage());
             }
         }
     }
@@ -58,7 +57,7 @@ public class InsuranceList {
 
     public void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
-            for (InsuranceCard card : insuranceCards) {
+            for (InsuranceCard card : insuranceCards.values()) {
                 writer.write(cardToFileFormat(card));
                 writer.newLine();
             }
@@ -74,34 +73,30 @@ public class InsuranceList {
         return card.getCardNum() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + expiredDateString;
     }
 
+    // Add a new InsuranceCard
     public void addInsuranceCard(InsuranceCard card) {
-        insuranceCards.add(card);
-        // Here you can also write the logic to save the updated list to the file if needed
+        insuranceCards.put(card.getCardNum(), card); // Use put method
+        saveToFile(); // Save changes
     }
 
+    // Update an existing InsuranceCard
     public void updateInsuranceCard(String cardNumber, InsuranceCard updatedCard) {
-        for (int i = 0; i < insuranceCards.size(); i++) {
-            if (insuranceCards.get(i).getCardNum().equals(cardNumber)) {
-                insuranceCards.set(i, updatedCard);
-                break;
-            }
+        if (insuranceCards.containsKey(cardNumber)) {
+            insuranceCards.put(cardNumber, updatedCard); // Update the card
+            saveToFile(); // Save changes
         }
-        // After updating the list, you would also write the updated list back to the file
-        saveToFile();
     }
 
+    // Delete an InsuranceCard
     public void deleteInsuranceCard(String cardNumber) {
-        insuranceCards.removeIf(card -> card.getCardNum().equals(cardNumber));
-        // After deleting the card, you would also update the file
-        saveToFile();
+        if (insuranceCards.containsKey(cardNumber)) {
+            insuranceCards.remove(cardNumber); // Remove the card
+            saveToFile(); // Save changes
+        }
     }
 
+    // Get a single InsuranceCard by card number
     public InsuranceCard getInsuranceCard(String cardNumber) {
-        for (InsuranceCard card : insuranceCards) {
-            if (card.getCardNum().equals(cardNumber)) {
-                return card;
-            }
-        }
-        return null;
+        return insuranceCards.get(cardNumber); // Use get method
     }
 }

@@ -1,8 +1,8 @@
 package controllers;
 
-import models.InsuranceCard;
-import system.InsuranceList;
-import views.InsuranceCardView;
+import models.*;
+import system.*;
+import views.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class InsuranceCardController {
     private final InsuranceCardView insuranceCardView;
@@ -44,7 +45,6 @@ public class InsuranceCardController {
         InsuranceCard newInsuranceCard = new InsuranceCard(cardHolder, policyOwner, expiredDate);
         insuranceList.addInsuranceCard(newInsuranceCard); // Add to list
         saveInsuranceCardToFile(newInsuranceCard); // Save to file
-
     }
 
     // Methods to handle date input
@@ -134,23 +134,23 @@ public class InsuranceCardController {
             throw new IOException("Failed to create directory " + dataFile.getParentFile().getAbsolutePath());
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile, true))) {
-            writer.write(insuranceCard.toString());
-            writer.newLine(); // Add a newline after writing the insurance card details
-            insuranceCardView.displayMessage("Insurance card saved successfully to " + dataFile.getAbsolutePath());
+        try (BufferedWriter insuranceWriter = new BufferedWriter(new FileWriter(dataFile, true))) {
+            insuranceWriter.write(insuranceCard.toString());
+            insuranceWriter.newLine(); // Add a newline after writing the insurance card details
+            insuranceCardView.displayMessage("\nInsurance card saved successfully to " + fileName);
         } catch (IOException e) {
             System.err.println("An error occurred while writing to the file.");
-            insuranceCardView.displayMessage("Failed to save the insurance card to " + dataFile.getAbsolutePath());
+            insuranceCardView.displayMessage("\nFailed to save the insurance card to " + fileName);
         }
     }
 
     // Read the insurance card details from the file
     public void displayAllInsuranceCards() {
-        List<InsuranceCard> cards = insuranceList.getInsuranceCards();
+        Map<String, InsuranceCard> cards = insuranceList.getInsuranceCards();
         if (cards.isEmpty()) {
             insuranceCardView.displayMessage("No insurance cards available.");
         } else {
-            for (InsuranceCard card : cards) {
+            for (InsuranceCard card : cards.values()) { // Iterate over values
                 displayInsuranceCardDetails(card);
             }
         }
