@@ -80,7 +80,6 @@ public class PolicyHolderList {
     }
 
     private String policyHolderToFileFormat(PolicyHolder policyHolder) {
-        // Assume InsuranceCard is nullable and properly handled in PolicyHolder's toString method
         return policyHolder.toString();
     }
 

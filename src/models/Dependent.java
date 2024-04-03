@@ -27,9 +27,10 @@ public class Dependent extends Customer {
         this.policyHolderID = policyHolderID;
     }
 
+
     @Override
     public String toString() {
         String insuranceDetails = getInsuranceCard() != null ? getInsuranceCard().toString() : "No Insurance";
-        return String.format("%s,%s,%s,%s", getId(), getFullName(), insuranceDetails, policyHolderID);
+        return String.format("%s,%s,%s,%s", getId(), getFullName(), policyHolderID, insuranceDetails);
     }
 }

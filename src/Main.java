@@ -2,12 +2,9 @@
  * @author Min Chi Gia Khiem - S3878280
  */
 
-
 import models.*;
 import controllers.*;
-import system.DependentList;
-import system.InsuranceList;
-import system.PolicyHolderList;
+import system.*;
 import views.*;
 
 import java.io.IOException;
@@ -17,9 +14,7 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
-
-class Main {
+public class Main {
     public static void main(String[] args) throws IOException {
         // Setup Lists
         InsuranceList insuranceList = new InsuranceList("data/Insurance.txt");

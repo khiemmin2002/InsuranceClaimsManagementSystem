@@ -64,7 +64,7 @@ public class DependentList {
     }
 
     private String dependentToFileFormat(Dependent dependent) {
-        return String.format("%s,%s,%s", dependent.getId(), dependent.getFullName(), dependent.getPolicyHolderID());
+        return dependent.toString();
     }
 
     public Map<String, Dependent> getDependents() {
