@@ -99,7 +99,7 @@ public class PolicyHolderController {
             boolean isDeleted = dependentList.deleteDependent(dependentId);
 
             if (isDeleted) {
-                // Optionally, remove the dependent from the policy holder's list of dependents
+                // Optionally, remove the dependent from the policyholder's list of dependents
                 PolicyHolder policyHolder = policyHolderList.getPolicyHolder(dependent.getPolicyHolderID());
                 if (policyHolder != null) {
                     policyHolder.removeDependent(dependent);

@@ -46,6 +46,11 @@ public class PolicyHolderView {
         System.out.println("\tCustomer ID: " + dependent.getId());
         System.out.println("\tCustomer Full Name: " + dependent.getFullName());
         System.out.println("\tPolicy Holder ID: " + dependent.getPolicyHolderID());
+        if (dependent.getInsuranceCard() != null) {
+            System.out.println("\tCard Number: " + dependent.getInsuranceCard().getCardNum());
+        } else {
+            System.out.println("\tNo insurance card");
+        }
     }
 
     public void displayMessage(String message) {

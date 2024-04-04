@@ -1,11 +1,12 @@
 package system;
 
 import models.Dependent;
+import models.InsuranceCard;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DependentList {
@@ -34,18 +35,41 @@ public class DependentList {
     }
 
     private Dependent parseLineToDependent(String line) {
-        String[] parts = line.split(",");
-        if (parts.length >= 3) {
-            String dependentID = parts[0];
-            String dependentName = parts[1];
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        // Attempt to isolate insurance information, if any
+        String[] parts = line.split(",", 4);
+
+        if (parts.length >= 4) {
+            String id = parts[0];
+            String name = parts[1];
             String policyHolderID = parts[2];
-            Dependent dependent = new Dependent(dependentName);
-            dependent.setId(dependentID);
-            dependent.setPolicyHolderID(policyHolderID); // Make sure this is set
-            return dependent;
+            String insuranceInfo = parts[3];
+
+            // Check if insuranceInfo explicitly states "No Insurance"
+            if ("\"No Insurance\"".equals(insuranceInfo)) {
+                return new Dependent(id, name, policyHolderID, null);
+            } else {
+                // Remove leading and trailing quotes from insuranceInfo
+                insuranceInfo = insuranceInfo.substring(1, insuranceInfo.length() - 1);
+
+                String[] insuranceParts = insuranceInfo.split(",", 4);
+
+                try {
+                    if (insuranceParts.length == 4) {
+                        Date expiredDate = dateFormat.parse(insuranceParts[3]);
+                        InsuranceCard insuranceCard = new InsuranceCard(insuranceParts[0], insuranceParts[1], insuranceParts[2], expiredDate);
+                        return new Dependent(id, name, policyHolderID, insuranceCard);
+                    }
+                } catch (ParseException e) {
+                    System.err.println("Failed to parse the date: " + insuranceParts[3]);
+                }
+            }
         }
+
         return null;
     }
+
 
     public void addDependent(Dependent dependent) {
         dependents.put(dependent.getId(), dependent);

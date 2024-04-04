@@ -1,16 +1,3 @@
-c2818813,Ronaldo Child 1,No Insurance,No Insurance
-c9158318,Rashford Child 1,No Insurance,No Insurance
-c1825984,LeBron Child 2,No Insurance,No Insurance
-c7205779,LeBron Child 1,No Insurance,No Insurance
-c6831978,Ronaldo Child 2,No Insurance,No Insurance
-c8732926,Curry Child 1,No Insurance,No Insurance
-c9769247,Chú Năm Son 1,No Insurance,No Insurance
-c5544369,Haaland Child 2,No Insurance,No Insurance
-c2285737,James Child 3,8062494905,No Insurance
-c9258545,Curry Child 2,No Insurance,No Insurance
-c6206015,Rashford Child 2,No Insurance,No Insurance
-c1112736,Messi Child 2,No Insurance,No Insurance
-c2387969,Messi Child 4,c5264434,2594097131,Lionel Messi,Inter Miami,06/03/2032
-c8941885,Chú Năm Son 2,No Insurance,No Insurance
-c1892267,Haaland Child 1,No Insurance,No Insurance
-c3012716,Messi Child 1,No Insurance,No Insurance
+c8174258,Biden Gang,c6608161,"No Insurance"
+c6736940,Haaland Gang 1,c3337814,"No Insurance"
+c0846418,Ronaldo Gang,c4453230,"3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030"

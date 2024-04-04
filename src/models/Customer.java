@@ -74,6 +74,6 @@ public abstract class Customer {
     @Override
     public String toString() {
         String insuranceCardDetails = (insuranceCard != null) ? insuranceCard.toString() : "No Insurance Card";
-        return id + "," + fullName + "," + insuranceCardDetails;
+        return id + "," + fullName + "," + "\"" + insuranceCardDetails + "\"";
     }
 }

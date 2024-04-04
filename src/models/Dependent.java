@@ -19,6 +19,11 @@ public class Dependent extends Customer {
         this.policyHolderID = policyHolderId;
     }
 
+    public Dependent(String id, String fullName, String policyHolderId, InsuranceCard insuranceCard) {
+        super(id, fullName, insuranceCard);
+        this.policyHolderID = policyHolderId;
+    }
+
     public String getPolicyHolderID() {
         return policyHolderID;
     }
@@ -31,6 +36,6 @@ public class Dependent extends Customer {
     @Override
     public String toString() {
         String insuranceDetails = getInsuranceCard() != null ? getInsuranceCard().toString() : "No Insurance";
-        return String.format("%s,%s,%s,%s", getId(), getFullName(), policyHolderID, insuranceDetails);
+        return getId() + "," + getFullName() + "," + policyHolderID + "," + "\"" + insuranceDetails + "\"";
     }
 }

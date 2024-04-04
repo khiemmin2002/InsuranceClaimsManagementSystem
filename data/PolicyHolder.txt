@@ -1,8 +1,4 @@
-c1641782,Erling Haaland,0288350795,Erling Haaland,Manchester City,11/05/2027
-c8098691,Chú Năm,5618663787,Chú Năm,CIA,05/02/2027
-c5264434,Lionel Messi,2594097131,Lionel Messi,Inter Miami,06/03/2032
-c5525810,Marcus Rashford,3893368015,Marcus Rashford,Manchester United,07/29/2035
-c9306934,Kylian Mbappe,3880495219,Kylian Mbappe,PSG,03/31/2029
-c8639245,Cristiano Ronaldo,3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
-c0756618,Stephen Curry,0364628045,Stephen Curry,Golden State Warriors,07/05/2032
-c7369516,LeBron James,8062494905,LeBron James,Los Angeles Lakers,07/04/2028
+c3337814,Erling Haaland,"No Insurance Card"
+c6608161,Joe Biden,"No Insurance Card"
+c4453230,Cristiano Ronaldo,"3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030"
+c3936581,Lionel Messi,"No Insurance Card"
