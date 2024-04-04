@@ -37,19 +37,6 @@ public class PolicyHolder extends Customer {
         dependents = new ArrayList<Dependent>();
     }
 
-    public List<Dependent> getDependents() {
-        return dependents;
-    }
-
-    public void setDependents(List<Dependent> dependents) {
-        this.dependents = dependents;
-    }
-
-
-    public void addDependent(Dependent dependent) {
-        dependents.add(dependent);
-    }
-
     public void removeDependent(Dependent dependent) {
         this.dependents.removeIf(d -> d.getId().equals(dependent.getId()));
     }

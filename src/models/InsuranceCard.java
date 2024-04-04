@@ -36,6 +36,11 @@ public class InsuranceCard {
         this.expiredDate = expiredDate;
     }
 
+    // Constructor for loading card from file (For claim list)
+    public InsuranceCard(String cardNum) {
+        this.cardNum = cardNum;
+    }
+
 
     public String getCardNum() {
         return cardNum;
@@ -60,10 +65,6 @@ public class InsuranceCard {
 
     public Date getExpiredDate() {
         return expiredDate;
-    }
-
-    public void setExpiredDate(Date expiredDate) {
-        this.expiredDate = expiredDate;
     }
 
     // Set the card number whenever the card is created

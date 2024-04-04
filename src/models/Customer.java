@@ -7,7 +7,7 @@ public abstract class Customer {
     private String id;
     private String fullName;
     private InsuranceCard insuranceCard;
-    private List<Claim> claims = new ArrayList<>();
+    private List<Claim> claims;
 
 
     // Default constructor with default values
@@ -15,29 +15,36 @@ public abstract class Customer {
         this.id = generateCustomerID();
         this.fullName = "Default";
         this.insuranceCard = new InsuranceCard();
+        this.claims = new ArrayList<Claim>();
     }
 
     public Customer(String fullName, InsuranceCard insuranceCard) {
         this.id = generateCustomerID();
         this.fullName = fullName;
         this.insuranceCard = insuranceCard;
+        this.claims = new ArrayList<Claim>();
     }
 
     public Customer(String id, String fullName, InsuranceCard insuranceCard) {
         this.id = id;
         this.fullName = fullName;
         this.insuranceCard = insuranceCard;
+        this.claims = new ArrayList<Claim>();
     }
 
     public Customer(String fullName) {
         this.id = generateCustomerID();
         this.fullName = fullName;
+        this.claims = new ArrayList<Claim>();
     }
 
     public Customer(String id, String fullName) {
         this.id = id;
         this.fullName = fullName;
+        this.claims = new ArrayList<Claim>();
     }
+
+
 
     public void setId(String id) {
         this.id = id;
@@ -62,6 +69,9 @@ public abstract class Customer {
     public void setInsuranceCard(InsuranceCard insuranceCard) {
         this.insuranceCard = insuranceCard;
     }
+
+
+
 
     public String generateCustomerID() {
         StringBuilder CustomerIDBuilder = new StringBuilder("c");

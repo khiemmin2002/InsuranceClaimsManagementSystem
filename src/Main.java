@@ -26,13 +26,20 @@ public class Main {
         DependentList dependentList = new DependentList("data/Dependent.txt");
         dependentList.loadFromFile();
 
+        ClaimList claimList = new ClaimList("data/Claim.txt");
+
         // Setup Views
         InsuranceCardView insuranceCardView = new InsuranceCardView();
         PolicyHolderView policyHolderView = new PolicyHolderView();
+        ClaimView claimView = new ClaimView();
 
         // Setup Controllers
         InsuranceCardController insuranceCardController = new InsuranceCardController(insuranceCardView, insuranceList);
         PolicyHolderController policyHolderController = new PolicyHolderController(policyHolderView, policyHolderList, insuranceList , dependentList);
+        ClaimController claimController = new ClaimController(claimView, claimList, policyHolderList);
+
+
+
 
         Scanner scanner = new Scanner(System.in);
 
@@ -52,7 +59,7 @@ public class Main {
                     break;
                 case 2:
                     // Placeholder for claims
-                    System.out.println("Claims section is under development.");
+                    claimMenu(scanner, claimController);
                     break;
                 case 3:
                     insuranceCardMenu(scanner, insuranceCardController);
@@ -146,6 +153,40 @@ public class Main {
                     break;
                 case 4:
                     insuranceCardController.deleteInsuranceCard();
+                    break;
+                case 5:
+                    return; // Go back to the main menu
+                default:
+                    System.out.println("Invalid option, please try again.");
+            }
+        }
+    }
+
+    // Adding claim menu
+    private static void claimMenu(Scanner scanner, ClaimController claimController) {
+        while (true) {
+            System.out.println("\n--- Claim Menu ---");
+            System.out.println("1. Add Claim");
+            System.out.println("2. View Claims");
+            System.out.println("3. Update Claim");
+            System.out.println("4. Delete Claim");
+            System.out.println("5. Back");
+            System.out.print("Select an option: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    claimController.add();
+                    break;
+                case 2:
+                    System.out.println("Claims get all is under development.");
+                    break;
+                case 3:
+                    System.out.println("Claims update is under development.");
+                    break;
+                case 4:
+                    System.out.println("Claims delete is under development.");
                     break;
                 case 5:
                     return; // Go back to the main menu

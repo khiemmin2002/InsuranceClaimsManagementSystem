@@ -76,12 +76,12 @@ public class PolicyHolderController {
     }
 
     public void addDependentToPolicyHolder() {
-        String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID: ");
-        PolicyHolder policyHolder = policyHolderList.getPolicyHolder(policyHolderId);
+        String policyHolderID = policyHolderView.promptForInput("Enter the policyholder's ID: ");
+        PolicyHolder policyHolder = policyHolderList.getPolicyHolder(policyHolderID);
         if (policyHolder != null) {
             String fullName = policyHolderView.promptForInput("Enter the full name of the dependent: ");
             InsuranceCard insuranceCard = policyHolder.getInsuranceCard();
-            Dependent newDependent = new Dependent(fullName, policyHolderId, insuranceCard);
+            Dependent newDependent = new Dependent(fullName, policyHolderID, insuranceCard);
             dependentList.addDependent(newDependent);
             policyHolderView.displayMessage("Dependent added successfully.");
         } else {

@@ -7,15 +7,18 @@ import java.util.Scanner;
 
 public class ClaimView {
 
-        public void displayClaimDetails(String claimNumber, String claimantName, String claimType, String claimAmount, String claimDate) {
-            System.out.println("\n-----------------------------------");
-            System.out.println("Claim Details:");
-            System.out.println("Claim Number: " + claimNumber);
-            System.out.println("Claimant Name: " + claimantName);
-            System.out.println("Claim Type: " + claimType);
-            System.out.println("Claim Amount: " + claimAmount);
-            System.out.println("Claim Date (mm/dd/yyyy): " + claimDate);
-            System.out.println("-----------------------------------\n");
+        public void displayClaimDetails(Claim claim) {
+            System.out.println("Claim ID: " + claim.getClaimID());
+            System.out.println("Claim Date: " + claim.getClaimDate());
+            System.out.println("Insured Person: " + claim.getInsuredPerson());
+            System.out.println("Card Number: " + claim.getCardNum());
+            System.out.println("Exam Date: " + claim.getExamDate());
+            System.out.println("List of Documents: " + claim.getListOfDocuments());
+            System.out.println("Claim Amount: " + claim.getClaimAmount());
+            System.out.println("Claim Status: " + claim.getClaimStatus());
+            System.out.println("Bank Name: " + claim.getBankName());
+            System.out.println("Bank Account Name: " + claim.getBankAccountName());
+            System.out.println("Account Number: " + claim.getAccountNumber());
         }
 
         // Method to display messages to the user...
