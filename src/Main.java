@@ -27,6 +27,7 @@ public class Main {
         dependentList.loadFromFile();
 
         ClaimList claimList = new ClaimList("data/Claim.txt");
+        claimList.loadFromFile();
 
         // Setup Views
         InsuranceCardView insuranceCardView = new InsuranceCardView();
@@ -135,7 +136,7 @@ public class Main {
             System.out.println("5. Back");
             System.out.print("Select an option: ");
 
-            int choice = scanner.nextInt();
+            int choice = getIntInput(scanner);
 
             switch (choice) {
                 case 1:
@@ -173,14 +174,14 @@ public class Main {
             System.out.println("5. Back");
             System.out.print("Select an option: ");
 
-            int choice = scanner.nextInt();
+            int choice = getIntInput(scanner);
 
             switch (choice) {
                 case 1:
                     claimController.add();
                     break;
                 case 2:
-                    System.out.println("Claims get all is under development.");
+                    claimController.getAll();
                     break;
                 case 3:
                     System.out.println("Claims update is under development.");

@@ -8,17 +8,23 @@ import java.util.Scanner;
 public class ClaimView {
 
         public void displayClaimDetails(Claim claim) {
+            System.out.println("\n****************************************************");
+            System.out.println("Claim Details:");
             System.out.println("Claim ID: " + claim.getClaimID());
-            System.out.println("Claim Date: " + claim.getClaimDate());
+            System.out.println("Claim Date: " + claim.getFormattedClaimDate());
             System.out.println("Insured Person: " + claim.getInsuredPerson());
             System.out.println("Card Number: " + claim.getCardNum());
-            System.out.println("Exam Date: " + claim.getExamDate());
-            System.out.println("List of Documents: " + claim.getListOfDocuments());
+            System.out.println("Exam Date: " + claim.getFormattedExamDate());
+            System.out.println("List of Documents: ");
+            for (int i = 0; i < claim.getListOfDocuments().size(); i++) {
+                System.out.println("\tDocument #" + (i + 1) + ": " + claim.getListOfDocuments().get(i));
+            }
             System.out.println("Claim Amount: " + claim.getClaimAmount());
             System.out.println("Claim Status: " + claim.getClaimStatus());
             System.out.println("Bank Name: " + claim.getBankName());
             System.out.println("Bank Account Name: " + claim.getBankAccountName());
             System.out.println("Account Number: " + claim.getAccountNumber());
+            System.out.println("****************************************************\n");
         }
 
         // Method to display messages to the user...

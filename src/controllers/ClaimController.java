@@ -8,6 +8,7 @@ import views.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class ClaimController implements ClaimProcessManager {
     private ClaimView claimView;
@@ -22,6 +23,7 @@ public class ClaimController implements ClaimProcessManager {
 
     @Override
     public void add() {
+        claimView.displayMessage("\nAdding a claim...");
         // Create a new claim
         Claim newClaim = new Claim();
 
@@ -41,7 +43,7 @@ public class ClaimController implements ClaimProcessManager {
             }
 
             // Prompt for claim date
-            claimView.promptForInput("Enter the claim date:");
+            claimView.displayMessage("Enter the claim date:");
             int year = promptForYear();
             int month = promptForMonth();
             int day = promptForDay(year, month);
@@ -53,9 +55,11 @@ public class ClaimController implements ClaimProcessManager {
                 claimView.displayMessage("Failed to parse the claim date!");
             }
 
+            newClaim.setClaimDate(claimDate);
+
             // Prompt for exam date
-            claimView.promptForInput("Enter the exam date:");
-            int examYear = promptForYear();
+            claimView.displayMessage("Enter the exam date:");
+            int examYear = promptForExamYear();
             int examMonth = promptForMonth();
             int examDay = promptForDay(examYear, examMonth);
 
@@ -65,6 +69,11 @@ public class ClaimController implements ClaimProcessManager {
             } catch (Exception e) {
                 claimView.displayMessage("Failed to parse the exam date!");
             }
+
+            newClaim.setExamDate(examDate);
+
+            newClaim.setInsuredPerson(policyHolder.getFullName());
+            newClaim.setCardNum(policyHolder.getInsuranceCard().getCardNum());
 
             // Prompt for documents
             // Ask for a number of documents (At least 1)
@@ -99,23 +108,19 @@ public class ClaimController implements ClaimProcessManager {
             // Prompt for bank name
             String bankName = claimView.promptForInput("Enter the bank name: ");
 
-            // Prompt for bank account name
-            String bankAccountName = claimView.promptForInput("Enter the bank account name: ");
-
             // Prompt for account number
             String accountNumber = claimView.promptForInput("Enter the account number: ");
 
             // Set the claim details
-            newClaim.setClaimDate(claimDate);
-            newClaim.setExamDate(examDate);
-            newClaim.setInsuredPerson(policyHolder.getFullName());
-            newClaim.setCardNum(policyHolder.getInsuranceCard().getCardNum());
+
+
             newClaim.setClaimAmount(claimAmount);
             newClaim.setBankName(bankName);
-            newClaim.setBankAccountName(bankAccountName);
+            newClaim.setBankAccountName(policyHolder.getFullName());
             newClaim.setAccountNumber(accountNumber);
 
             // Add the claim to the list
+            claimList.addClaim(newClaim);
             claimView.displayMessage("Claim added successfully.");
 
 
@@ -138,13 +143,23 @@ public class ClaimController implements ClaimProcessManager {
     }
 
     @Override
-    public models.Claim getOne(String claimId) {
+    public Claim getOne(String claimId) {
         return null;
     }
 
     @Override
-    public java.util.List<Claim> getAll() {
-        return null;
+    public void getAll() {
+        // Display all claims
+        claimView.displayMessage("\nDisplaying all claims...");
+        Map<String, Claim> claims = claimList.getClaims();
+        if (claims.isEmpty()) {
+            claimView.displayMessage("No claims found.");
+        } else {
+            for (Map.Entry<String, Claim> entry : claims.entrySet()) {
+                claimView.displayClaimDetails(entry.getValue());
+            }
+        }
+
     }
 
     // Methods to handle date input
@@ -213,6 +228,17 @@ public class ClaimController implements ClaimProcessManager {
         return true;
     }
 
+    // Prompt for exam year
+    public int promptForExamYear() {
+        while (true) {
+            try {
+                return Integer.parseInt(claimView.promptForInput("Enter the year (yyyy): "));
+            } catch (NumberFormatException e) {
+                claimView.displayMessage("Please enter a valid numeric year.");
+            }
+        }
+    }
+
     // Process for the documents
     // Process for the number of documents to add
     private int promptForNumberOfDocuments() {
@@ -233,7 +259,7 @@ public class ClaimController implements ClaimProcessManager {
     // Process the document file name
     private String generateDocumentFileName(String claimId, String cardNumber, String documentName) {
         // Logic to generate the file name, ensuring to replace spaces with underscores or another character
-        documentName = documentName.replaceAll("\\s+", "_");
+        documentName = documentName.replaceAll("\\s+", " ");
         return claimId + "_" + cardNumber + "_" + documentName + ".pdf";
     }
 

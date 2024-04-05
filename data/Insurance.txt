@@ -1,8 +1,10 @@
-3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
 2594097131,Lionel Messi,Inter Miami,06/03/2032
-3880495219,Kylian Mbappe,PSG,03/31/2029
-0288350795,Erling Haaland,Manchester City,11/05/2027
-3893368015,Marcus Rashford,Manchester United,07/29/2035
 8062494905,LeBron James,Los Angeles Lakers,07/04/2028
-0364628045,Stephen Curry,Golden State Warriors,07/05/2032
+3880495219,Kylian Mbappe,PSG,03/31/2029
+3893368015,Marcus Rashford,Manchester United,07/29/2035
 5618663787,Chú Năm,CIA,05/02/2027
+0255738373,Joe Biden,Federal Government of the United States,06/03/2035
+0288350795,Erling Haaland,Manchester City,11/05/2027
+0364628045,Stephen Curry,Golden State Warriors,07/05/2032
+3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030
+0255738373,Joe Biden,Federal Government of the United States,06/03/2035

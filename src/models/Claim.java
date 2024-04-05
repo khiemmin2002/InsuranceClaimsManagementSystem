@@ -52,15 +52,29 @@ public class Claim {
         this.accountNumber = accountNumber;
     }
 
-    public Claim(Date claimDate, PolicyHolder policyHolder, InsuranceCard insuranceCard, Date examDate, List<String> listOfDocuments, double claimAmount, String bankName, String bankAccountName, String accountNumber) {
+    public Claim(Date claimDate, Customer insuredPerson, InsuranceCard insuranceCard, Date examDate, List<String> listOfDocuments, double claimAmount, String bankName, String bankAccountName, String accountNumber) {
         this.claimID = generateClaimID();
         this.claimDate = claimDate;
-        this.insuredPerson = policyHolder.getFullName();
+        this.insuredPerson = insuredPerson.getFullName();
         this.cardNum = insuranceCard.getCardNum();
         this.examDate = examDate;
         this.listOfDocuments = listOfDocuments != null ? listOfDocuments : new ArrayList<>();
         this.claimAmount = claimAmount;
         this.claimStatus = "NEW";
+        this.bankName = bankName;
+        this.bankAccountName = bankAccountName;
+        this.accountNumber = accountNumber;
+    }
+
+    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNum, Date examDate, List<String> listOfDocuments, double claimAmount, String claimStatus, String bankName, String bankAccountName, String accountNumber) {
+        this.claimID = claimID;
+        this.claimDate = claimDate;
+        this.insuredPerson = insuredPerson;
+        this.cardNum = cardNum;
+        this.examDate = examDate;
+        this.listOfDocuments = listOfDocuments;
+        this.claimAmount = claimAmount;
+        this.claimStatus = claimStatus;
         this.bankName = bankName;
         this.bankAccountName = bankAccountName;
         this.accountNumber = accountNumber;
@@ -193,4 +207,23 @@ public class Claim {
         return false;
     }
 
+    @Override
+    public String toString() {
+        // Format the date to mm/dd/yyyy
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String claimDateString = claimDate != null ? dateFormat.format(claimDate) : "N/A";
+        String examDateString = examDate != null ? dateFormat.format(examDate) : "N/A";
+
+        return claimID + "," +
+                claimDateString + "," +
+                insuredPerson + "," +
+                cardNum + "," +
+                examDateString + "," +
+                listOfDocuments + "," +
+                claimAmount + "," +
+                claimStatus + "," +
+                bankName + "," +
+                bankAccountName + "," +
+                accountNumber;
+    }
 }
