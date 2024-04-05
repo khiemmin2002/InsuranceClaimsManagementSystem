@@ -1,15 +1,9 @@
 package models;
 
-import controllers.*;
-import views.*;
-import system.*;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import java.util.Date;
 
 public class Claim {
     private String claimID;
@@ -23,6 +17,7 @@ public class Claim {
     private String bankName;
     private String bankAccountName;
     private String accountNumber;
+    private String customerID;
 
     public Claim() {
         this.claimID = generateClaimID();
@@ -36,37 +31,10 @@ public class Claim {
         this.bankName = "Default";
         this.bankAccountName = "Default";
         this.accountNumber = "Default";
+        this.customerID = "Default";
     }
 
-    public Claim(String claimID, Date claimDate, Customer insuredPerson, InsuranceCard cardNum, Date examDate, List<String> listOfDocuments, double claimAmount, String claimStatus, String bankName, String bankAccountName, String accountNumber) {
-        this.claimID = generateClaimID();
-        this.claimDate = null;
-        this.insuredPerson = insuredPerson.getFullName();
-        this.cardNum = cardNum.getCardNum();
-        this.examDate = null;
-        this.listOfDocuments = new ArrayList<>();
-        this.claimAmount = 0;
-        this.claimStatus = "NEW";
-        this.bankName = bankName;
-        this.bankAccountName = bankAccountName;
-        this.accountNumber = accountNumber;
-    }
-
-    public Claim(Date claimDate, Customer insuredPerson, InsuranceCard insuranceCard, Date examDate, List<String> listOfDocuments, double claimAmount, String bankName, String bankAccountName, String accountNumber) {
-        this.claimID = generateClaimID();
-        this.claimDate = claimDate;
-        this.insuredPerson = insuredPerson.getFullName();
-        this.cardNum = insuranceCard.getCardNum();
-        this.examDate = examDate;
-        this.listOfDocuments = listOfDocuments != null ? listOfDocuments : new ArrayList<>();
-        this.claimAmount = claimAmount;
-        this.claimStatus = "NEW";
-        this.bankName = bankName;
-        this.bankAccountName = bankAccountName;
-        this.accountNumber = accountNumber;
-    }
-
-    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNum, Date examDate, List<String> listOfDocuments, double claimAmount, String claimStatus, String bankName, String bankAccountName, String accountNumber) {
+    public Claim(String claimID, Date claimDate, String insuredPerson, String cardNum, Date examDate, List<String> listOfDocuments, double claimAmount, String claimStatus, String bankName, String bankAccountName, String accountNumber, String customerID) {
         this.claimID = claimID;
         this.claimDate = claimDate;
         this.insuredPerson = insuredPerson;
@@ -78,6 +46,7 @@ public class Claim {
         this.bankName = bankName;
         this.bankAccountName = bankAccountName;
         this.accountNumber = accountNumber;
+        this.customerID = customerID;
     }
 
     public String getClaimID() {
@@ -167,6 +136,14 @@ public class Claim {
         this.accountNumber = accountNumber;
     }
 
+    public void setCustomerID(String policyHolderID) {
+        this.customerID = policyHolderID;
+    }
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
     // Generate random claim ID
     private String generateClaimID() {
         StringBuilder claimIDBuilder = new StringBuilder("f");
@@ -192,19 +169,8 @@ public class Claim {
         return new SimpleDateFormat("MM/dd/yyyy").format(examDate);
     }
 
-    // Set the status
-    public boolean setClaimStatus(String claimStatus) {
-        String [] claimStatusList = {"NEW" , "PROCESSING", "DONE"};
-        boolean checked = false;
-        for (String availableClaimStatus: claimStatusList){
-            if (availableClaimStatus.equals(claimStatus))
-                checked = true;
-        }
-        if (checked){
-            this.claimStatus = claimStatus;
-            return true;
-        }
-        return false;
+    public void setClaimStatus(String claimStatus) {
+        this.claimStatus = claimStatus;
     }
 
     @Override
@@ -224,6 +190,7 @@ public class Claim {
                 claimStatus + "," +
                 bankName + "," +
                 bankAccountName + "," +
-                accountNumber;
+                accountNumber + "," +
+                customerID;
     }
 }

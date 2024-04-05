@@ -1,20 +1,20 @@
 package views;
 
-import models.Dependent;
-import models.PolicyHolder;
+import models.*;
 
 import java.util.List;
 import java.util.Scanner;
 
+import static views.ClaimView.displayClaimDetails;
+
 public class PolicyHolderView {
 
     public void displayPolicyHolderDetails(PolicyHolder policyHolder) {
-        System.out.println("\n********************************************");
+        System.out.println("\n******************************************************");
         System.out.println("Policy Holder Details:");
         System.out.println("Customer ID: " + policyHolder.getId());
         System.out.println("Customer Full Name: " + policyHolder.getFullName());
-        System.out.println("Insurance Card: " + getInsuranceCardDetails(policyHolder));
-        System.out.println("-----------------------------------\n");
+        System.out.println("\nInsurance Card: " + getInsuranceCardDetails(policyHolder));
     }
 
     private String getInsuranceCardDetails(PolicyHolder policyHolder) {
@@ -30,16 +30,15 @@ public class PolicyHolderView {
 
     public void displayDependents(List<Dependent> dependents) {
         if (!dependents.isEmpty()) {
-            System.out.println("Dependents:");
+            System.out.println("\nDependents:");
             for (Dependent dependent : dependents) {
                 System.out.println("\t-----------------------------------");
                 displayDependentDetails(dependent);
                 System.out.println("\t-----------------------------------");
             }
         } else {
-            System.out.println("No dependents");
+            System.out.println("\nNo dependents");
         }
-        System.out.println("********************************************");
     }
 
     public void displayDependentDetails(Dependent dependent) {
@@ -53,6 +52,18 @@ public class PolicyHolderView {
         }
     }
 
+    public void displayClaims(List<Claim> claims) {
+        if (!claims.isEmpty()) {
+            System.out.println("\nClaims:");
+            for (Claim claim : claims) {
+                displayClaimDetails(claim);
+            }
+        } else {
+            System.out.println("\nNo claims\n");
+        }
+        System.out.println("******************************************************\n");
+    }
+
     public void displayMessage(String message) {
         System.out.println(message);
     }
@@ -63,8 +74,9 @@ public class PolicyHolderView {
         return scanner.nextLine();
     }
 
-    public void displayPolicyHolderWithDependents(PolicyHolder policyHolder, List<Dependent> dependents) {
+    public void displayPolicyHolderWithDependentsClaims(PolicyHolder policyHolder, List<Dependent> dependents, List<Claim> claims) {
         displayPolicyHolderDetails(policyHolder);
         displayDependents(dependents);
+        displayClaims(claims);
     }
 }

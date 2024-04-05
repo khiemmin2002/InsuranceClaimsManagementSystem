@@ -118,10 +118,11 @@ public class ClaimController implements ClaimProcessManager {
             newClaim.setBankName(bankName);
             newClaim.setBankAccountName(policyHolder.getFullName());
             newClaim.setAccountNumber(accountNumber);
+            newClaim.setCustomerID(policyHolder.getId());
 
             // Add the claim to the list
             claimList.addClaim(newClaim);
-            claimView.displayMessage("Claim added successfully.");
+            claimView.displayMessage("\nClaim added successfully.");
 
 
             // Display the claim details
@@ -133,18 +134,66 @@ public class ClaimController implements ClaimProcessManager {
     }
 
     @Override
-    public void update(Claim claim) {
+    public void update() {
+        String claimID = claimView.promptForInput("Enter the claim ID: ");
+        Claim updatedClaim = claimList.getClaim(claimID);
 
+        if (updatedClaim != null) {
+            int option;
+            do {
+                claimView.displayMessage("\nEnter the claim status:");
+                claimView.displayMessage("1. PROCESSING");
+                claimView.displayMessage("2. DONE");
+                claimView.displayMessage("3. CANCELED");
+                claimView.displayMessage("Choose an option (1-3): ");
+
+                String input = claimView.promptForInput("");
+                try {
+                    option = Integer.parseInt(input);
+                    if (option < 1 || option > 3) {
+                        claimView.displayMessage("Invalid option, please enter a number between 1 and 3.");
+                    }
+                } catch (NumberFormatException e) {
+                    option = 0; // Set to an invalid value to trigger the loop again
+                    claimView.displayMessage("Invalid input, please enter a number.");
+                }
+            } while (option < 1 || option > 3);
+
+            // Map the option to the corresponding claim status
+            String claimStatus = switch (option) {
+                case 1 -> "PROCESSING";
+                case 2 -> "DONE";
+                case 3 -> "CANCELED";
+                default -> throw new IllegalStateException("Unexpected value: " + option);
+            };
+
+            updatedClaim.setClaimStatus(claimStatus);
+            claimList.updateClaim(claimID, updatedClaim);
+            claimView.displayMessage("Claim updated successfully.");
+        } else {
+            claimView.displayMessage("Claim not found.");
+        }
+    }
+
+
+    @Override
+    public void delete() {
+        // Prompt for claim ID
+        String claimID = claimView.promptForInput("Enter the claim ID: ");
+        claimList.deleteClaim(claimID);
+        claimView.displayMessage("Insurance card deleted successfully.");
     }
 
     @Override
-    public void delete(String claimId) {
-
-    }
-
-    @Override
-    public Claim getOne(String claimId) {
-        return null;
+    public void getOne() {
+        // Prompt for claim ID
+        String claimID = claimView.promptForInput("Enter the claim ID: ");
+        Claim claim = claimList.getClaim(claimID);
+        if (claim != null) {
+            claimView.displayClaimDetails(claim);
+        } else {
+            claimView.displayMessage("Claim not found.");
+        }
     }
 
     @Override

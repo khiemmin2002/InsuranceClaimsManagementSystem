@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class ClaimView {
 
-        public void displayClaimDetails(Claim claim) {
-            System.out.println("\n****************************************************");
+        public static void displayClaimDetails(Claim claim) {
+            System.out.println("-------------------------------------------------------------");
             System.out.println("Claim Details:");
             System.out.println("Claim ID: " + claim.getClaimID());
             System.out.println("Claim Date: " + claim.getFormattedClaimDate());
@@ -24,7 +24,7 @@ public class ClaimView {
             System.out.println("Bank Name: " + claim.getBankName());
             System.out.println("Bank Account Name: " + claim.getBankAccountName());
             System.out.println("Account Number: " + claim.getAccountNumber());
-            System.out.println("****************************************************\n");
+            System.out.println("-------------------------------------------------------------\n");
         }
 
         // Method to display messages to the user...

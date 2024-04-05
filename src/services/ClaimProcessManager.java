@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ClaimProcessManager {
     void add();
-    void update(Claim claim);
-    void delete(String claimId);
-    Claim getOne(String claimId);
+    void update();
+    void delete();
+    void getOne();
     void getAll();
 }

@@ -14,12 +14,14 @@ public class PolicyHolderController {
     private final PolicyHolderList policyHolderList;
     private final InsuranceList insuranceList;
     private final DependentList dependentList;
+    private final ClaimList claimList;
 
-    public PolicyHolderController(PolicyHolderView policyHolderView, PolicyHolderList policyHolderList, InsuranceList insuranceList, DependentList dependentList) {
+    public PolicyHolderController(PolicyHolderView policyHolderView, PolicyHolderList policyHolderList, InsuranceList insuranceList, DependentList dependentList, ClaimList claimList) {
         this.policyHolderView = policyHolderView;
         this.policyHolderList = policyHolderList;
         this.insuranceList = insuranceList;
         this.dependentList = dependentList;
+        this.claimList = claimList;
     }
 
     public void addPolicyHolder() throws IOException {
@@ -42,9 +44,15 @@ public class PolicyHolderController {
                     .sorted(Comparator.comparing(Dependent::getId))
                     .collect(Collectors.toList());
 
+            // Claims
+            List<Claim> sortedClaims = claimList.getClaimsForPolicyHolder(policyHolder.getId()).stream()
+                    .sorted(Comparator.comparing(Claim::getClaimID))
+                    .toList();
+
             // Call a method that handles the display of a policyholder and their dependents together
-            policyHolderView.displayPolicyHolderWithDependents(policyHolder, sortedDependents);
+            policyHolderView.displayPolicyHolderWithDependentsClaims(policyHolder, sortedDependents, sortedClaims);
         }
+
     }
 
     public void assignInsuranceCardToPolicyHolder() {

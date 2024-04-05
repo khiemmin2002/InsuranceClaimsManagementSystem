@@ -36,7 +36,7 @@ public class Main {
 
         // Setup Controllers
         InsuranceCardController insuranceCardController = new InsuranceCardController(insuranceCardView, insuranceList);
-        PolicyHolderController policyHolderController = new PolicyHolderController(policyHolderView, policyHolderList, insuranceList , dependentList);
+        PolicyHolderController policyHolderController = new PolicyHolderController(policyHolderView, policyHolderList, insuranceList , dependentList, claimList);
         ClaimController claimController = new ClaimController(claimView, claimList, policyHolderList);
 
 
@@ -169,9 +169,10 @@ public class Main {
             System.out.println("\n--- Claim Menu ---");
             System.out.println("1. Add Claim");
             System.out.println("2. View Claims");
-            System.out.println("3. Update Claim");
-            System.out.println("4. Delete Claim");
-            System.out.println("5. Back");
+            System.out.println("3. View a Claim");
+            System.out.println("4. Update Claim");
+            System.out.println("5. Delete Claim");
+            System.out.println("6. Back");
             System.out.print("Select an option: ");
 
             int choice = getIntInput(scanner);
@@ -184,12 +185,15 @@ public class Main {
                     claimController.getAll();
                     break;
                 case 3:
-                    System.out.println("Claims update is under development.");
+                    claimController.getOne();
                     break;
                 case 4:
-                    System.out.println("Claims delete is under development.");
+                    claimController.update();
                     break;
                 case 5:
+                    claimController.delete();
+                    break;
+                case 6:
                     return; // Go back to the main menu
                 default:
                     System.out.println("Invalid option, please try again.");

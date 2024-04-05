@@ -70,8 +70,13 @@ public abstract class Customer {
         this.insuranceCard = insuranceCard;
     }
 
+    public List<Claim> getClaims() {
+        return claims;
+    }
 
-
+    public void setClaims(List<Claim> claims) {
+        this.claims = claims;
+    }
 
     public String generateCustomerID() {
         StringBuilder CustomerIDBuilder = new StringBuilder("c");

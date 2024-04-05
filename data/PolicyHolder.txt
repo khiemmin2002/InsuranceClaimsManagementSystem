@@ -1,4 +1,4 @@
-c3337814,Erling Haaland,"No Insurance Card"
+c3337814,Erling Haaland,"0288350795,Erling Haaland,Manchester City,11/05/2027"
 c6608161,Joe Biden,"0255738373,Joe Biden,Federal Government of the United States,06/03/2035"
 c4453230,Cristiano Ronaldo,"3642967418,Cristiano Ronaldo,Al Nassr,08/06/2030"
-c3936581,Lionel Messi,"No Insurance Card"
+c3936581,Lionel Messi,"2594097131,Lionel Messi,Inter Miami,06/03/2032"

@@ -1,14 +1,12 @@
 package system;
 
-import models.Claim;
-import models.Customer;
-import models.InsuranceCard;
-import models.PolicyHolder;
+import models.*;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ClaimList {
     private Map<String, Claim> claims = new HashMap<>();
@@ -22,6 +20,11 @@ public class ClaimList {
         return new HashMap<>(claims);
     }
 
+    // Get a claim by ID
+    public Claim getClaim(String claimID) {
+        return claims.get(claimID);
+    }
+
     private void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
             for (Claim claim : claims.values()) {
@@ -31,11 +34,6 @@ public class ClaimList {
         } catch (IOException e) {
             System.err.println("An error occurred while saving claims to the file: " + e.getMessage());
         }
-    }
-
-    public void addClaim(Claim claim) {
-        claims.put(claim.getClaimID(), claim);
-        saveToFile();
     }
 
     public void loadFromFile() {
@@ -57,18 +55,7 @@ public class ClaimList {
 
     private Claim parseLineToClaim(String line) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        // Identify and preprocess the list of documents
-        int listStart = line.indexOf('[');
-        int listEnd = line.lastIndexOf(']');
-        String preList = line.substring(0, listStart);
-        String postList = line.substring(listEnd + 1);
-        String listContents = line.substring(listStart + 1, listEnd).replace(", ", ";");
-
-        // Combine the parts back together with the modified list contents
-        String processedLine = preList + listContents + postList;
-
-        // Now split the rest of the processed line
-        String[] parts = processedLine.split(",", -1);
+        String[] parts = getStrings(line);
 
         if (parts.length >= 11) {
             try {
@@ -83,8 +70,9 @@ public class ClaimList {
                 String bankName = parts[8];
                 String bankAccountName = parts[9];
                 String accountNumber = parts[10];
+                String customerID = parts[11];
 
-                return new Claim(claimID, claimDate, insuredPerson, cardNum, examDate, listOfDocuments, claimAmount, claimStatus, bankName, bankAccountName, accountNumber);
+                return new Claim(claimID, claimDate, insuredPerson, cardNum, examDate, listOfDocuments, claimAmount, claimStatus, bankName, bankAccountName, accountNumber, customerID);
             } catch (ParseException e) {
                 System.err.println("Failed to parse the date: " + e.getMessage());
                 return null;
@@ -94,5 +82,48 @@ public class ClaimList {
         return null;
     }
 
+    private static String[] getStrings(String line) {
+        int listStart = line.indexOf('[');
+        int listEnd = line.lastIndexOf(']');
+        String preList = line.substring(0, listStart);
+        String postList = line.substring(listEnd + 1);
+        String listContents = line.substring(listStart + 1, listEnd).replace(", ", ";");
+
+        // Combine the parts back together with the modified list contents
+        String processedLine = preList + listContents + postList;
+
+        // Now split the rest of the processed line
+        String[] parts = processedLine.split(",", -1);
+        return parts;
+    }
+
+    // Add a claim
+    public void addClaim(Claim claim) {
+        claims.put(claim.getClaimID(), claim);
+        saveToFile();
+    }
+
+    // Delete a claim
+    public void deleteClaim(String claimID) {
+        if (claims.containsKey(claimID)) {
+            claims.remove(claimID);
+            saveToFile();
+        }
+    }
+
+    // Update a claim
+    public void updateClaim(String claimID, Claim updatedClaim) {
+        if (claims.containsKey(claimID)) {
+            claims.put(claimID, updatedClaim);
+            saveToFile();
+        }
+    }
+
+    public List<Claim> getClaimsForPolicyHolder(String policyHolderID) {
+        // Filter the claims whose customerID matches the given ID and return them as a list
+        return claims.values().stream()
+                .filter(claim -> policyHolderID.equals(claim.getCustomerID()))
+                .collect(Collectors.toList());
+    }
 
 }
