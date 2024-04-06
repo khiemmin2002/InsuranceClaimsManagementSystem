@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * RMIT University Vietnam - Assignment 1
+ * @author <Min Chi Gia Khiem - S3878280>
+ * @version 1.0
+ * @since 04/05/2024
+ */
+
 public class Claim {
     private String claimID;
     private Date claimDate;
@@ -19,6 +26,7 @@ public class Claim {
     private String accountNumber;
     private String customerID;
 
+    // Default constructor with default values
     public Claim() {
         this.claimID = generateClaimID();
         this.claimDate = null;
@@ -34,6 +42,7 @@ public class Claim {
         this.customerID = "Default";
     }
 
+    // Constructor used in ClaimList class when parsing a line from the file
     public Claim(String claimID, Date claimDate, String insuredPerson, String cardNum, Date examDate, List<String> listOfDocuments, double claimAmount, String claimStatus, String bankName, String bankAccountName, String accountNumber, String customerID) {
         this.claimID = claimID;
         this.claimDate = claimDate;
@@ -49,12 +58,9 @@ public class Claim {
         this.customerID = customerID;
     }
 
+    // Getter
     public String getClaimID() {
         return claimID;
-    }
-
-    public Date getClaimDate() {
-        return claimDate;
     }
 
     public String getInsuredPerson() {
@@ -63,10 +69,6 @@ public class Claim {
 
     public String getCardNum() {
         return cardNum;
-    }
-
-    public Date getExamDate() {
-        return examDate;
     }
 
     public List<String> getListOfDocuments() {
@@ -93,12 +95,11 @@ public class Claim {
         return accountNumber;
     }
 
-    // Setters
-
-
-    public void setClaimID(String claimID) {
-        this.claimID = claimID;
+    public String getCustomerID() {
+        return customerID;
     }
+
+    // Setter
 
     public void setClaimDate(Date claimDate) {
         this.claimDate = claimDate;
@@ -116,12 +117,12 @@ public class Claim {
         this.examDate = examDate;
     }
 
-    public void setListOfDocuments(List<String> listOfDocuments) {
-        this.listOfDocuments = listOfDocuments;
-    }
-
     public void setClaimAmount(double claimAmount) {
         this.claimAmount = claimAmount;
+    }
+
+    public void setClaimStatus(String claimStatus) {
+        this.claimStatus = claimStatus;
     }
 
     public void setBankName(String bankName) {
@@ -140,11 +141,7 @@ public class Claim {
         this.customerID = policyHolderID;
     }
 
-    public String getCustomerID() {
-        return customerID;
-    }
-
-    // Generate random claim ID
+    // Generate a random claim ID with the format "f##########"
     private String generateClaimID() {
         StringBuilder claimIDBuilder = new StringBuilder("f");
         for (int i = 0; i < 10; i++) {
@@ -154,25 +151,21 @@ public class Claim {
     }
 
     // Format the date to mm/dd/yyyy
-    public String getFormattedClaimDate() {
+    public String getFormattedClaimDate() { // Format the claim date
         if (claimDate == null) {
             return "Claim Date is not set";
         }
         return new SimpleDateFormat("MM/dd/yyyy").format(claimDate);
     }
 
-    // Format the date to mm/dd/yyyy
-    public String getFormattedExamDate() {
+    public String getFormattedExamDate() { // Format the exam date
         if (examDate == null) {
             return "Exam Date is not set";
         }
         return new SimpleDateFormat("MM/dd/yyyy").format(examDate);
     }
 
-    public void setClaimStatus(String claimStatus) {
-        this.claimStatus = claimStatus;
-    }
-
+    // toString method to format the claim object to a string
     @Override
     public String toString() {
         // Format the date to mm/dd/yyyy

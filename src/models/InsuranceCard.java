@@ -8,12 +8,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.function.IntPredicate;
 
+/**
+ * RMIT University Vietnam - Assignment 1
+ * @author <Min Chi Gia Khiem - S3878280>
+ * @version 1.0
+ * @since 04/05/2024
+ */
+
 public class InsuranceCard {
     private final String cardNum;
     private String cardHolder;
     private String policyOwner;
     private Date expiredDate;
 
+    // Default constructor with default values
     public InsuranceCard() {
         cardNum = generateCardNum();
         cardHolder = "Default";
@@ -21,6 +29,7 @@ public class InsuranceCard {
         expiredDate = null;
     }
 
+    // Constructor used in InsuranceCardController when adding a new card
     public InsuranceCard(String cardHolder, String policyOwner, Date expiredDate) {
         this.cardNum = generateCardNum();
         this.cardHolder = cardHolder;
@@ -28,7 +37,7 @@ public class InsuranceCard {
         this.expiredDate = expiredDate;
     }
 
-    // Constructor for loading card from file (no new card number generation)
+    // Constructor for loading card from file (No new card number generation)
     public InsuranceCard(String cardNum, String cardHolder, String policyOwner, Date expiredDate) {
         this.cardNum = cardNum; // Use the existing card number
         this.cardHolder = cardHolder;
@@ -36,31 +45,16 @@ public class InsuranceCard {
         this.expiredDate = expiredDate;
     }
 
-    // Constructor for loading card from file (For claim list)
-    public InsuranceCard(String cardNum) {
-        this.cardNum = cardNum;
-    }
-
-
     public String getCardNum() {
         return cardNum;
     }
-
 
     public String getCardHolder() {
         return cardHolder;
     }
 
-    public void setCardHolder(String cardHolder) {
-        this.cardHolder = cardHolder;
-    }
-
     public String getPolicyOwner() {
         return policyOwner;
-    }
-
-    public void setPolicyOwner(String policyOwner) {
-        this.policyOwner = policyOwner;
     }
 
     public Date getExpiredDate() {
@@ -86,6 +80,7 @@ public class InsuranceCard {
         return new SimpleDateFormat("MM/dd/yyyy").format(expiredDate);
     }
 
+    // toString method to format the insurance card object to a string
     @Override
     public String toString() {
         // Format the expired date to mm/dd/yyyy

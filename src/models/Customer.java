@@ -3,6 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RMIT University Vietnam - Assignment 1
+ * @author <Min Chi Gia Khiem - S3878280>
+ * @version 1.0
+ * @since 04/05/2024
+ */
+
 public abstract class Customer {
     private String id;
     private String fullName;
@@ -44,14 +51,8 @@ public abstract class Customer {
         this.claims = new ArrayList<Claim>();
     }
 
-
-
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getId() {
@@ -70,14 +71,7 @@ public abstract class Customer {
         this.insuranceCard = insuranceCard;
     }
 
-    public List<Claim> getClaims() {
-        return claims;
-    }
-
-    public void setClaims(List<Claim> claims) {
-        this.claims = claims;
-    }
-
+    // Generate a random customer ID with the format "cxxxxxxx"
     public String generateCustomerID() {
         StringBuilder CustomerIDBuilder = new StringBuilder("c");
         for (int i = 0; i < 7; i++) {
@@ -86,6 +80,7 @@ public abstract class Customer {
         return CustomerIDBuilder.toString();
     }
 
+    // toString method to format the customer object to a string
     @Override
     public String toString() {
         String insuranceCardDetails = (insuranceCard != null) ? insuranceCard.toString() : "No Insurance Card";

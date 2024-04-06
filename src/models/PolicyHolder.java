@@ -8,35 +8,29 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * RMIT University Vietnam - Assignment 1
+ * @author <Min Chi Gia Khiem - S3878280>
+ * @version 1.0
+ * @since 04/05/2024
+ */
+
 public class PolicyHolder extends Customer {
     private List<Dependent> dependents;
 
-
-    public PolicyHolder() {
-        super();
-        dependents = new ArrayList<Dependent>();
-    }
-
+    // Constructor used in PolicyHolderController when adding a new policyholder
     public PolicyHolder(String fullName) {
         super(fullName);
         dependents = new ArrayList<Dependent>();
     }
 
-    public PolicyHolder(String fullName, InsuranceCard insuranceCard) {
-        super(fullName, insuranceCard);
-        dependents = new ArrayList<Dependent>();
-    }
-
+    // Constructor used in PolicyHolderController when parsing a line from the file
     public PolicyHolder(String id, String fullName, InsuranceCard insuranceCard) {
         super(id, fullName, insuranceCard);
         dependents = new ArrayList<Dependent>();
     }
 
-    public PolicyHolder(String id, String fullName) {
-        super(id, fullName);
-        dependents = new ArrayList<Dependent>();
-    }
-
+    // Method to remove a dependent from the list of dependents
     public void removeDependent(Dependent dependent) {
         this.dependents.removeIf(d -> d.getId().equals(dependent.getId()));
     }

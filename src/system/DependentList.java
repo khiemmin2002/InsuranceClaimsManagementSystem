@@ -9,6 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * RMIT University Vietnam - Assignment 1
+ * @author <Min Chi Gia Khiem - S3878280>
+ * @version 1.0
+ * @since 04/05/2024
+ */
+
 public class DependentList {
     private Map<String, Dependent> dependents = new HashMap<>();
     private String filePath;

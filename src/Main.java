@@ -14,6 +14,13 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * RMIT University Vietnam - Assignment 1
+ * @author <Min Chi Gia Khiem - S3878280>
+ * @version 1.0
+ * @since 04/05/2024
+ */
+
 public class Main {
     public static void main(String[] args) throws IOException {
         // Setup Lists
@@ -47,7 +54,7 @@ public class Main {
         while (true) {
             System.out.println("\n--- Main Menu ---");
             System.out.println("1. Customer");
-            System.out.println("2. Claims (Placeholder)");
+            System.out.println("2. Claims");
             System.out.println("3. Insurance Card");
             System.out.println("4. Exit");
             System.out.print("Choose an option: ");

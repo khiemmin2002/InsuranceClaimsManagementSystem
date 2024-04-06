@@ -10,6 +10,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * RMIT University Vietnam - Assignment 1
+ * @author <Min Chi Gia Khiem - S3878280>
+ * @version 1.0
+ * @since 04/05/2024
+ */
+
 public class PolicyHolderList {
     private Map<String, PolicyHolder> policyHolders = new HashMap<>();
     private String filePath;
