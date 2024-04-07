@@ -15,10 +15,19 @@ import java.util.stream.Collectors;
  * @since 04/05/2024
  */
 
+/***************************************************************************************
+ *    Title: Split() String method in Java with examples
+ *    Author: Vaibhav, B
+ *    Date: 05/22/2023
+ *    Availability: https://www.geeksforgeeks.org/split-string-java-examples/
+ * ***************************************************************************************/
+
 public class ClaimList {
     private Map<String, Claim> claims = new HashMap<>();
     private String filePath;
 
+    // Constructor used to specify the location of the file
+    // from which claims will be loaded or to which they will be saved
     public ClaimList(String filePath) {
         this.filePath = filePath;
     }
@@ -32,17 +41,7 @@ public class ClaimList {
         return claims.get(claimID);
     }
 
-    private void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
-            for (Claim claim : claims.values()) {
-                writer.write(claim.toString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("An error occurred while saving claims to the file: " + e.getMessage());
-        }
-    }
-
+    // A method to load claims from the file
     public void loadFromFile() {
         File file = new File(filePath);
         if (file.exists()) {
@@ -60,6 +59,19 @@ public class ClaimList {
         }
     }
 
+    // A method to save claims to the file
+    private void saveToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            for (Claim claim : claims.values()) {
+                writer.write(claim.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving claims to the file: " + e.getMessage());
+        }
+    }
+
+    // A method to parse a line from the file to a claim object
     private Claim parseLineToClaim(String line) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String[] parts = getStrings(line);
@@ -89,6 +101,7 @@ public class ClaimList {
         return null;
     }
 
+    // A method to get the "list of documents" string by splitting the line
     private static String[] getStrings(String line) {
         int listStart = line.indexOf('[');
         int listEnd = line.lastIndexOf(']');
@@ -126,11 +139,11 @@ public class ClaimList {
         }
     }
 
+    // Get all claims for a policyholder
     public List<Claim> getClaimsForPolicyHolder(String policyHolderID) {
         // Filter the claims whose customerID matches the given ID and return them as a list
         return claims.values().stream()
                 .filter(claim -> policyHolderID.equals(claim.getCustomerID()))
                 .collect(Collectors.toList());
     }
-
 }

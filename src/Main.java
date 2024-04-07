@@ -46,18 +46,17 @@ public class Main {
         PolicyHolderController policyHolderController = new PolicyHolderController(policyHolderView, policyHolderList, insuranceList , dependentList, claimList);
         ClaimController claimController = new ClaimController(claimView, claimList, policyHolderList);
 
-
-
-
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("Welcome to the Insurance Claims Management System!");
+        // Main menu
         while (true) {
             System.out.println("\n--- Main Menu ---");
             System.out.println("1. Customer");
             System.out.println("2. Claims");
             System.out.println("3. Insurance Card");
             System.out.println("4. Exit");
-            System.out.print("Choose an option: ");
+            System.out.print("\nChoose an option: ");
 
             int choice = getIntInput(scanner);
 
@@ -66,7 +65,6 @@ public class Main {
                     customerMenu(scanner, policyHolderController);
                     break;
                 case 2:
-                    // Placeholder for claims
                     claimMenu(scanner, claimController);
                     break;
                 case 3:
@@ -81,6 +79,7 @@ public class Main {
         }
     }
 
+    // Customer menu
     private static void customerMenu(Scanner scanner, PolicyHolderController policyHolderController) {
         boolean exit = false;
         while (!exit) {
@@ -92,7 +91,7 @@ public class Main {
             System.out.println("5. Delete Dependent");
             System.out.println("6. Assign Insurance Card");
             System.out.println("7. Back");
-            System.out.print("Select an option: ");
+            System.out.print("\nSelect an option: ");
 
             int choice = getIntInput(scanner);
 
@@ -133,6 +132,7 @@ public class Main {
         }
     }
 
+    // Insurance card menu
     private static void insuranceCardMenu(Scanner scanner, InsuranceCardController insuranceCardController) {
         while (true) {
             System.out.println("\n--- Insurance Card Menu ---");
@@ -141,7 +141,7 @@ public class Main {
             System.out.println("3. Update Insurance Card");
             System.out.println("4. Delete Insurance Card");
             System.out.println("5. Back");
-            System.out.print("Select an option: ");
+            System.out.print("\nSelect an option: ");
 
             int choice = getIntInput(scanner);
 
@@ -170,7 +170,7 @@ public class Main {
         }
     }
 
-    // Adding claim menu
+    // Claim menu
     private static void claimMenu(Scanner scanner, ClaimController claimController) {
         while (true) {
             System.out.println("\n--- Claim Menu ---");
@@ -180,7 +180,7 @@ public class Main {
             System.out.println("4. Update Claim");
             System.out.println("5. Delete Claim");
             System.out.println("6. Back");
-            System.out.print("Select an option: ");
+            System.out.print("\nSelect an option: ");
 
             int choice = getIntInput(scanner);
 
@@ -208,7 +208,7 @@ public class Main {
         }
     }
 
-    // Helper method to ensure only integer input is accepted
+    // Method to ensure only integer input is accepted
     private static int getIntInput(Scanner scanner) {
         while (true) {
             try {

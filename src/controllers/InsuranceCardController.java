@@ -10,10 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * RMIT University Vietnam - Assignment 1
@@ -26,12 +23,13 @@ public class InsuranceCardController {
     private final InsuranceCardView insuranceCardView;
     private final InsuranceList insuranceList;
 
-
+    // Constructor to set up the Insurance Card controller
     public InsuranceCardController(InsuranceCardView insuranceCardView, InsuranceList insuranceList) {
         this.insuranceCardView = insuranceCardView;
         this.insuranceList = insuranceList;
     }
 
+    // Method to add an insurance card
     public void addInsuranceCard() throws IOException{
         insuranceCardView.displayMessage("Adding an insurance card...");
 
@@ -157,18 +155,18 @@ public class InsuranceCardController {
         if (cards.isEmpty()) {
             insuranceCardView.displayMessage("No insurance cards available.");
         } else {
-            for (InsuranceCard card : cards.values()) { // Iterate over values
-                displayInsuranceCardDetails(card);
-            }
+            cards.values().stream() // Convert collection of cards to stream
+                    .sorted(Comparator.comparing(InsuranceCard::getCardNum)) // Sort by cardNum
+                    .forEach(this::displayInsuranceCardDetails); // Use method reference to display details of each card
         }
     }
 
+    // A method to update the insurance card details
     public void updateInsuranceCard() {
         String cardNumber = insuranceCardView.promptForInput("Enter the card number of the insurance card to update: ");
         InsuranceCard cardToUpdate = insuranceList.getInsuranceCard(cardNumber);
 
         if (cardToUpdate != null) {
-            // Since policyOwner and other variables are not globally defined, you need to prompt for them again or derive them from existing data
             String cardHolder = insuranceCardView.promptForInput("Enter the new card holder's name: ");
             String policyOwner = insuranceCardView.promptForInput("Enter the new policy owner's name: ");
 
@@ -194,7 +192,7 @@ public class InsuranceCardController {
         }
     }
 
-
+    // A method to delete the insurance card
     public void deleteInsuranceCard() {
         // Prompt user for card number
         String cardNumber = insuranceCardView.promptForInput("Enter the card number of the insurance card to delete: ");
@@ -203,5 +201,4 @@ public class InsuranceCardController {
         insuranceList.deleteInsuranceCard(cardNumber);
         insuranceCardView.displayMessage("Insurance card deleted successfully.");
     }
-
 }

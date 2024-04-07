@@ -23,6 +23,7 @@ public class PolicyHolderController {
     private final DependentList dependentList;
     private final ClaimList claimList;
 
+    // Constructor to set up the PolicyHolder controller
     public PolicyHolderController(PolicyHolderView policyHolderView, PolicyHolderList policyHolderList, InsuranceList insuranceList, DependentList dependentList, ClaimList claimList) {
         this.policyHolderView = policyHolderView;
         this.policyHolderList = policyHolderList;
@@ -31,6 +32,7 @@ public class PolicyHolderController {
         this.claimList = claimList;
     }
 
+    // Method to add a policyholder
     public void addPolicyHolder() throws IOException {
         policyHolderView.displayMessage("Adding a new policy holder...");
         String fullName = policyHolderView.promptForInput("Enter the full name of the policy holder: ");
@@ -39,29 +41,35 @@ public class PolicyHolderController {
         policyHolderView.displayMessage("Policy holder added successfully.");
     }
 
+    // Method to display all policyholders
     public void displayAllPolicyHolders() {
         policyHolderView.displayMessage("\nDisplaying all policy holders (Sorted by ID):");
 
+        // Sort the policyholders by ID
         List<PolicyHolder> sortedPolicyHolders = policyHolderList.getPolicyHolders().values().stream()
                 .sorted(Comparator.comparing(PolicyHolder::getId))
                 .toList();
 
         for (PolicyHolder policyHolder : sortedPolicyHolders) {
+            // Dependents
+            // Sort the dependents by ID
             List<Dependent> sortedDependents = dependentList.getDependentsForPolicyHolder(policyHolder.getId()).stream()
                     .sorted(Comparator.comparing(Dependent::getId))
                     .collect(Collectors.toList());
 
             // Claims
+            // Sort the claims by ID
             List<Claim> sortedClaims = claimList.getClaimsForPolicyHolder(policyHolder.getId()).stream()
                     .sorted(Comparator.comparing(Claim::getClaimID))
                     .toList();
 
-            // Call a method that handles the display of a policyholder and their dependents together
+            // Call a method that handles the display of a policyholder and their dependents and claims together
             policyHolderView.displayPolicyHolderWithDependentsClaims(policyHolder, sortedDependents, sortedClaims);
         }
 
     }
 
+    // A method to assign an insurance card to a policyholder
     public void assignInsuranceCardToPolicyHolder() {
         String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID: ");
         String cardNumber = policyHolderView.promptForInput("Enter the insurance card number: ");
@@ -81,6 +89,7 @@ public class PolicyHolderController {
         }
     }
 
+    // A method to delete a policyholder
     public void deletePolicyHolder() {
         String policyHolderId = policyHolderView.promptForInput("Enter the policyholder's ID to delete: ");
         if (policyHolderList.deletePolicyHolder(policyHolderId)) {
@@ -90,6 +99,7 @@ public class PolicyHolderController {
         }
     }
 
+    // Add a dependent to a policyholder
     public void addDependentToPolicyHolder() {
         String policyHolderID = policyHolderView.promptForInput("Enter the policyholder's ID: ");
         PolicyHolder policyHolder = policyHolderList.getPolicyHolder(policyHolderID);

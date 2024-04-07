@@ -22,12 +22,16 @@ public class ClaimController implements ClaimProcessManager {
     private ClaimList claimList;
     private PolicyHolderList policyHolderList;
 
+    // Constructor to set up the ClaimController in the Main class
     public ClaimController(ClaimView claimView, ClaimList claimList, PolicyHolderList policyHolderList) {
         this.claimView = claimView;
         this.claimList = claimList;
         this.policyHolderList = policyHolderList;
     }
 
+    // Implementing the methods from the ClaimProcessManager interface
+
+    // Method to add a claim
     @Override
     public void add() {
         claimView.displayMessage("\nAdding a claim...");
@@ -43,9 +47,8 @@ public class ClaimController implements ClaimProcessManager {
 
             // Check if the policyHolder has an insurance card
             if (insuranceCard == null) {
-                // Policyholder does NOT have an insurance card, notify and handle accordingly
+                // Policyholder does NOT have an insurance card, notify and exit the method
                 claimView.displayMessage("Policyholder does not have an insurance card. Please assign an insurance card to continue.");
-                // Exiting the method as there is no insurance card
                 return;
             }
 
@@ -119,8 +122,6 @@ public class ClaimController implements ClaimProcessManager {
             String accountNumber = claimView.promptForInput("Enter the account number: ");
 
             // Set the claim details
-
-
             newClaim.setClaimAmount(claimAmount);
             newClaim.setBankName(bankName);
             newClaim.setBankAccountName(policyHolder.getFullName());
@@ -140,6 +141,7 @@ public class ClaimController implements ClaimProcessManager {
         }
     }
 
+    // Method to update a claim
     @Override
     public void update() {
         String claimID = claimView.promptForInput("Enter the claim ID: ");
@@ -173,7 +175,6 @@ public class ClaimController implements ClaimProcessManager {
                 case 3 -> "CANCELED";
                 default -> throw new IllegalStateException("Unexpected value: " + option);
             };
-
             updatedClaim.setClaimStatus(claimStatus);
             claimList.updateClaim(claimID, updatedClaim);
             claimView.displayMessage("Claim updated successfully.");
@@ -182,7 +183,7 @@ public class ClaimController implements ClaimProcessManager {
         }
     }
 
-
+    // Method to delete a claim
     @Override
     public void delete() {
         // Prompt for claim ID
@@ -191,6 +192,7 @@ public class ClaimController implements ClaimProcessManager {
         claimView.displayMessage("Insurance card deleted successfully.");
     }
 
+    // Method to get one claim
     @Override
     public void getOne() {
         // Prompt for claim ID
@@ -203,6 +205,7 @@ public class ClaimController implements ClaimProcessManager {
         }
     }
 
+    // Method to get all claims
     @Override
     public void getAll() {
         // Display all claims
@@ -314,9 +317,8 @@ public class ClaimController implements ClaimProcessManager {
 
     // Process the document file name
     private String generateDocumentFileName(String claimId, String cardNumber, String documentName) {
-        // Logic to generate the file name, ensuring to replace spaces with underscores or another character
+        // Generate the file name
         documentName = documentName.replaceAll("\\s+", " ");
         return claimId + "_" + cardNumber + "_" + documentName + ".pdf";
     }
-
 }

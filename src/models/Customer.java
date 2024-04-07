@@ -45,12 +45,6 @@ public abstract class Customer {
         this.claims = new ArrayList<Claim>();
     }
 
-    public Customer(String id, String fullName) {
-        this.id = id;
-        this.fullName = fullName;
-        this.claims = new ArrayList<Claim>();
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -72,7 +66,7 @@ public abstract class Customer {
     }
 
     // Generate a random customer ID with the format "cxxxxxxx"
-    public String generateCustomerID() {
+    private String generateCustomerID() {
         StringBuilder CustomerIDBuilder = new StringBuilder("c");
         for (int i = 0; i < 7; i++) {
             CustomerIDBuilder.append((int) (Math.random() * 10));

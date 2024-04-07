@@ -14,10 +14,19 @@ import java.util.*;
  * @since 04/05/2024
  */
 
+/***************************************************************************************
+ *    Title: Split() String method in Java with examples
+ *    Author: Vaibhav, B
+ *    Date: 05/22/2023
+ *    Availability: https://www.geeksforgeeks.org/split-string-java-examples/
+ * ***************************************************************************************/
+
 public class InsuranceList {
     private Map<String, InsuranceCard> insuranceCards;
     private String filePath;
 
+    // Constructor used to specify the location of the file
+    // from which insurance cards will be loaded or to which they will be saved
     public InsuranceList(String filePath) {
         this.insuranceCards = new HashMap<>();
         this.filePath = filePath;
@@ -27,7 +36,7 @@ public class InsuranceList {
         return insuranceCards;
     }
 
-    // Load cards from file
+    // Load insurance cards from the file
     public void loadFromFile() {
         File file = new File(filePath);
         if (file.exists()) {
@@ -36,7 +45,7 @@ public class InsuranceList {
                 while ((line = reader.readLine()) != null) {
                     InsuranceCard card = parseLineToInsuranceCard(line);
                     if (card != null) {
-                        insuranceCards.put(card.getCardNum(), card); // Use put method
+                        insuranceCards.put(card.getCardNum(), card);
                     }
                 }
             } catch (IOException e) {
@@ -45,6 +54,19 @@ public class InsuranceList {
         }
     }
 
+    // Save insurance cards to the file
+    public void saveToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            for (InsuranceCard card : insuranceCards.values()) {
+                writer.write(cardToFileFormat(card));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving insurance cards to the file: " + e.getMessage());
+        }
+    }
+
+    // A method to parse a line from the file into an InsuranceCard object
     private InsuranceCard parseLineToInsuranceCard(String line) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String[] parts = line.split(",");
@@ -61,27 +83,17 @@ public class InsuranceList {
         return null;
     }
 
-    public void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
-            for (InsuranceCard card : insuranceCards.values()) {
-                writer.write(cardToFileFormat(card));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("An error occurred while saving insurance cards to the file: " + e.getMessage());
-        }
-    }
-
+    // A method to format an InsuranceCard object into a line for the file
     private String cardToFileFormat(InsuranceCard card) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         String expiredDateString = card.getExpiredDate() != null ? dateFormat.format(card.getExpiredDate()) : "N/A";
-        // Assuming the format "cardNum,cardHolder,policyOwner,expiredDate"
+
         return card.getCardNum() + "," + card.getCardHolder() + "," + card.getPolicyOwner() + "," + expiredDateString;
     }
 
     // Add a new InsuranceCard
     public void addInsuranceCard(InsuranceCard card) {
-        insuranceCards.put(card.getCardNum(), card); // Use put method
+        insuranceCards.put(card.getCardNum(), card);
         saveToFile(); // Save changes
     }
 

@@ -1,1 +1,16 @@
-f3301265342,04/06/2024,Cristiano Ronaldo,3642967418,01/05/2024,[f3301265342_3642967418_Emory University Hospital.pdf],22000.0,NEW,Citibank,Cristiano Ronaldo,334455,c4453230
+f4502985808,04/05/2024,D,4393681576,02/01/2024,[f4502985808_4393681576_D Checkup Beth Israel Deaconess Medical Center.pdf],400.0,DONE,U.S. Bank,D,35871,c2764846
+f2703083791,04/05/2024,Lionel Messi,0071040334,03/28/2024,[f2703083791_0071040334_Messi Checkup Tampa General Hospital.pdf, f2703083791_0071040334_Messi Knee Checkup Tampa General Hospital.pdf],3280.0,DONE,Citibank,Lionel Messi,59269,c0111691
+f9964041615,04/05/2024,Joe Biden,6312266870,02/25/2024,[f9964041615_6312266870_Joe Checkup St. Joseph Mercy Chelsea.pdf],578.0,DONE,Citibank,Joe Biden,11485,c4893187
+f3049389139,04/05/2024,Cristiano Ronaldo,7297516461,12/15/2023,[f3049389139_7297516461_Ronaldo Checkup Cleveland Clinic Akron General.pdf],4500.0,CANCELED,Capital One,Cristiano Ronaldo,43193,c7938800
+f3944507477,04/05/2024,LeBron James,2436387783,12/02/2023,[f3944507477_2436387783_James Knee Checkup Northwestern Memorial Hospital.pdf, f3944507477_2436387783_James Ankle Checkup Northwestern Memorial Hospital.pdf],960.75,PROCESSING,Goldman Sachs Bank,LeBron James,98675,c5684674
+f6693934482,04/05/2024,Cody Rhodes,0366982281,02/12/2024,[f6693934482_0366982281_Cody Medical Checkup UCLA Health – Ronald Reagan Medical Center.pdf],200.0,PROCESSING,JPMorgan Chase,Cody Rhodes,16543,c9397147
+f4409625022,04/03/2024,Kevin Durant,1572281310,12/30/2023,[f4409625022_1572281310_Durant Medicine Invoice University of Utah Hospital.pdf],2000.0,NEW,Capital One,Kevin Durant,52839,c3729058
+f4397122634,04/05/2024,E,4711428876,01/02/2024,[f4397122634_4711428876_E Checkup Mayo Clinic - Rochester.pdf, f4397122634_4711428876_E Routine Checkup Cleveland Clinic.pdf, f4397122634_4711428876_E Blood Test Massachusetts General Hospital.pdf],4700.0,NEW,Bank of America,E,47859,c0079492
+f9964207294,04/05/2024,Lionel Messi,0071040334,12/05/2023,[f9964207294_0071040334_Messi Ankle Checkup University of Minnesota Medical Center.pdf],1855.0,NEW,Citibank,Lionel Messi,59269,c0111691
+f4029102076,04/05/2024,B,0158833654,12/30/2023,[f4029102076_0158833654_B Checkup Penn State Health - Milton S. Hershey Medical Center.pdf],715.33,NEW,Citibank,B,42971,c1677066
+f5638404372,04/05/2024,C,9695393800,12/12/2023,[f5638404372_9695393800_C Checkup Hackensack University Medical Center.pdf],2300.0,DONE,Bank of America,C,14853,c5248079
+f8985411631,04/05/2024,Stephen Curry,6481282526,02/01/2024,[f8985411631_6481282526_Curry Checkup UPMC Presbyterian & Shadyside.pdf],845.75,NEW,Truist Bank,Stephen Curry,30564,c7293612
+f7324161600,04/05/2024,Kamala Harris,1200254555,12/08/2023,[f7324161600_1200254555_Kamala Checkup Advocate Good Samaritan Hospital.pdf],698.0,NEW,Capital One,Kamala Harris,55874,c0259990
+f5446332488,05/04/2024,D,4393681576,02/23/2024,[f5446332488_4393681576_D Medicine Invoice CVS Pharmacy.pdf, f5446332488_4393681576_D Eye Checkup Sanford USD Medical Center.pdf, f5446332488_4393681576_Ohio State University - Wexner Medical Center.pdf],32000.0,NEW,TD Bank,D,54018,c2764846
+f0556570960,04/05/2024,The Rock,9225617373,03/15/2024,[f0556570960_9225617373_Dwayne Checkup CentraCare - St. Cloud Hospital.pdf],237.99,PROCESSING,JPMorgan Chase,The Rock,04212,c8780832
+f9603907229,04/05/2024,Kevin Durant,1572281310,11/20/2023,[f9603907229_1572281310_Durant Checkup University of Michigan Hospitals - Michigan Medicine.pdf],20.65,NEW,Capital One,Kevin Durant,52839,c3729058

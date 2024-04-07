@@ -17,10 +17,19 @@ import java.util.Map;
  * @since 04/05/2024
  */
 
+/***************************************************************************************
+ *    Title: Split() String method in Java with examples
+ *    Author: Vaibhav, B
+ *    Date: 05/22/2023
+ *    Availability: https://www.geeksforgeeks.org/split-string-java-examples/
+ * ***************************************************************************************/
+
 public class PolicyHolderList {
     private Map<String, PolicyHolder> policyHolders = new HashMap<>();
     private String filePath;
 
+    // Constructor used to specify the location of the file
+    // from which policyholders will be loaded or to which they will be saved
     public PolicyHolderList(String filePath) {
         this.filePath = filePath;
     }
@@ -29,6 +38,7 @@ public class PolicyHolderList {
         return new HashMap<>(policyHolders);
     }
 
+    // Load policyholders from the file
     public void loadFromFile() {
         File file = new File(filePath);
         if (file.exists()) {
@@ -46,10 +56,22 @@ public class PolicyHolderList {
         }
     }
 
+    // Save policyholders to the file
+    private void saveToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            for (PolicyHolder policyHolder : policyHolders.values()) {
+                writer.write(policyHolderToFileFormat(policyHolder));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving policy holders to the file: " + e.getMessage());
+        }
+    }
+
+    // A method to parse a line from the file into a PolicyHolder object
     private PolicyHolder parseLineToPolicyHolder(String line) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-        // Split the line by comma, but limit the number of splits to ensure that insurance card info remains intact
         String[] parts = line.split(",", 3);
 
         if (parts.length >= 3) {
@@ -81,37 +103,28 @@ public class PolicyHolderList {
         return null;
     }
 
-
-
     public PolicyHolder getPolicyHolder(String customerID) {
         return policyHolders.get(customerID);
     }
 
+    // A method to update a policyholder
     public void updatePolicyHolder(PolicyHolder updatedPolicyHolder) {
         policyHolders.put(updatedPolicyHolder.getId(), updatedPolicyHolder);
         saveToFile();
     }
 
-    private void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
-            for (PolicyHolder policyHolder : policyHolders.values()) {
-                writer.write(policyHolderToFileFormat(policyHolder));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("An error occurred while saving policy holders to the file: " + e.getMessage());
-        }
-    }
-
+    // A method to format a PolicyHolder object into a line for the file
     private String policyHolderToFileFormat(PolicyHolder policyHolder) {
         return policyHolder.toString();
     }
 
+    // A method to add a policyholder
     public void addPolicyHolder(PolicyHolder policyHolder) {
         policyHolders.put(policyHolder.getId(), policyHolder);
         saveToFile();
     }
 
+    // A method to delete a policyholder
     public boolean deletePolicyHolder(String customerID) {
         if (policyHolders.containsKey(customerID)) {
             policyHolders.remove(customerID);

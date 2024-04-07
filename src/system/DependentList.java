@@ -16,14 +16,24 @@ import java.util.stream.Collectors;
  * @since 04/05/2024
  */
 
+/***************************************************************************************
+ *    Title: Split() String method in Java with examples
+ *    Author: Vaibhav, B
+ *    Date: 05/22/2023
+ *    Availability: https://www.geeksforgeeks.org/split-string-java-examples/
+ * ***************************************************************************************/
+
 public class DependentList {
     private Map<String, Dependent> dependents = new HashMap<>();
     private String filePath;
 
+    // Constructor used to specify the location of the file
+    // from which dependents will be loaded or to which they will be saved
     public DependentList(String filePath) {
         this.filePath = filePath;
     }
 
+    // A method to load dependents from the file
     public void loadFromFile() {
         File file = new File(filePath);
         if (file.exists()) {
@@ -41,6 +51,19 @@ public class DependentList {
         }
     }
 
+    // A method to save dependents to the file
+    private void saveToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            for (Dependent dependent : dependents.values()) {
+                writer.write(dependentToFileFormat(dependent));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while saving dependents to the file: " + e.getMessage());
+        }
+    }
+
+    // A method to parse a line from the file into a Dependent object
     private Dependent parseLineToDependent(String line) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -77,35 +100,18 @@ public class DependentList {
         return null;
     }
 
+    // A method to convert a dependent object to a string format for writing to the file
+    private String dependentToFileFormat(Dependent dependent) {
+        return dependent.toString();
+    }
 
+    // A method to add a dependent
     public void addDependent(Dependent dependent) {
         dependents.put(dependent.getId(), dependent);
         saveToFile();
     }
 
-    private void saveToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
-            for (Dependent dependent : dependents.values()) {
-                writer.write(dependentToFileFormat(dependent));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("An error occurred while saving dependents to the file: " + e.getMessage());
-        }
-    }
-
-    private String dependentToFileFormat(Dependent dependent) {
-        return dependent.toString();
-    }
-
-    public Map<String, Dependent> getDependents() {
-        return new HashMap<>(dependents);
-    }
-
-
-
-    // Implement delete and update methods if necessary
-    // Example:
+    // A method to delete a dependent
     public boolean deleteDependent(String dependentID) {
         if (dependents.containsKey(dependentID)) {
             dependents.remove(dependentID);
@@ -115,7 +121,7 @@ public class DependentList {
         return false;
     }
 
-    // New method to get dependents by policyHolderID
+    // A method to get dependents by policyHolderID
     public List<Dependent> getDependentsForPolicyHolder(String policyHolderID) {
         // Filter the dependents whose policyHolderID matches the given ID and return them as a list
         return dependents.values().stream()
@@ -123,6 +129,7 @@ public class DependentList {
                 .collect(Collectors.toList());
     }
 
+    // A method to get a dependent by ID
     public Dependent getDependent(String dependentID) {
         return dependents.get(dependentID);
     }

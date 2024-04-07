@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 
 public class InsuranceCardView {
-
+    // Method to display the details of an insurance card
     public void displayInsuranceCardDetails(String cardNumber, String cardHolder, String policyOwner, String expiredDate) {
         System.out.println("\n***********************************");
         System.out.println("Insurance Card Details:");
